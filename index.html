@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Encell Composites | Scrap Tires, Re-engineered into Infrastructure</title>
+<meta name="description" content="Encell Composites converts scrap-tire rubber into patented thermoset composite products, beginning with the GFR20 railroad crosstie." />
+<meta name="theme-color" content="#1C1D1F" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C1D1F;--ink-2:#26282B;--ink-3:#303236;
+    --olive:#66703A;--olive-d:#4F5728;--olive-h:#77823F;
+    --sage:#A4AC7C;--sage-l:#C8CEA6;--on-dark:#B9C28C;
+    --paper:#FFFFFF;--mist:#F4F4F1;--cloud:#ECEDE7;
+    --text:#161618;--muted:#5B5D60;--soft:#8A8C8F;
+    --line:rgba(15,15,17,.10);--line-d:rgba(255,255,255,.12);
+    --sans:'Poppins','Segoe UI',system-ui,sans-serif;
+    --cond:'Barlow Condensed','Poppins',sans-serif;
+    --pad:clamp(20px,5vw,80px);--maxw:1280px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--paper);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img,canvas,svg{display:block;max-width:100%}
+  button{font-family:inherit}
+  ::selection{background:var(--olive);color:#fff}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+  .eyebrow{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--olive);font-weight:600}
+  .display{font-weight:650;line-height:1.04;letter-spacing:-.015em;color:#111114;text-wrap:balance}
+  .display em{font-style:italic;color:var(--olive)}
+
+  /* ===== NAV ===== */
+  header.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+    padding:20px var(--pad);color:#fff;transition:background .4s,padding .4s,box-shadow .4s,color .4s}
+  header.nav.solid{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--text);padding:13px var(--pad);box-shadow:0 1px 0 rgba(15,15,17,.07)}
+  .brand{display:flex;align-items:center;gap:12px;cursor:pointer;color:currentColor}
+  .brand svg{height:40px;width:auto;flex:none;transition:height .4s}
+  header.nav.solid .brand svg{height:34px}
+  .bw{display:flex;flex-direction:column;line-height:.9}
+  .bw b{font-family:var(--cond);font-weight:700;font-size:1.7rem;letter-spacing:.02em;color:currentColor}
+  .bw span{font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;opacity:.7;margin-top:4px;font-weight:500}
+  header.nav{--mk:#fff}
+  header.nav.solid,header.nav.menuopen{--mk:#2A2C2F}
+  nav.links{display:flex;gap:26px;align-items:center}
+  nav.links a{font-size:.9rem;opacity:.86;cursor:pointer;position:relative;padding:4px 0;transition:opacity .2s}
+  nav.links a:hover{opacity:1}
+  nav.links a.active{opacity:1}
+  nav.links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1.5px;background:var(--sage)}
+  header.nav.solid nav.links a.active::after{background:var(--olive)}
+  nav.links a.nav-cta{display:inline-flex;align-items:center;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+    border:1px solid rgba(255,255,255,.5);border-radius:100px;padding:12px 22px;opacity:1;transition:.25s}
+  header.nav.solid nav.links a.nav-cta{border-color:rgba(15,15,17,.26)}
+  nav.links a.nav-cta:hover{background:var(--olive);border-color:var(--olive);color:#fff}
+  nav.links a.nav-cta.active::after{display:none}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;color:inherit;padding:6px}
+  .burger span{width:24px;height:1.5px;background:currentColor;display:block;transition:.3s}
+
+  /* ===== ROUTER ===== */
+  .page{display:none;animation:pageIn .55s var(--ease)}
+  .page.active{display:block}
+  @keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ===== SHELLS ===== */
+  section.band{padding:clamp(56px,7vw,100px) 0}
+  .tone-mist{background:var(--mist)}
+  .page-top{padding:clamp(120px,16vh,176px) 0 clamp(28px,3.5vw,46px)}
+  .page-top h1{font-size:clamp(2.3rem,5vw,4rem);margin:.32em 0 .22em;max-width:20ch}
+  .page-top .sub,.sec-head .sub{color:var(--muted);font-weight:300;font-size:clamp(1rem,1.35vw,1.16rem);max-width:60ch;text-wrap:pretty}
+  .page-top + section.band{padding-top:clamp(18px,2.6vw,36px)}
+  .sec-head{max-width:66ch}
+  .sec-head h2{font-size:clamp(1.95rem,4.2vw,3.2rem);margin:.32em 0 .1em}
+  .sec-head .sub{margin-top:.65em}
+  .sec-head.center{margin:0 auto;text-align:center}
+  .sec-head.center .sub{margin-left:auto;margin-right:auto}
+
+  /* ===== BUTTONS ===== */
+  .btn{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:15px 26px;border-radius:100px;cursor:pointer;
+    border:1px solid transparent;display:inline-flex;gap:.7em;align-items:center;transition:transform .25s var(--ease),background .25s,border-color .25s,color .25s,box-shadow .25s}
+  .btn-primary{background:var(--olive);color:#fff}
+  .btn-primary:hover{background:var(--olive-h);transform:translateY(-2px);box-shadow:0 18px 32px -16px rgba(102,112,58,.6)}
+  .btn-ghost{border-color:rgba(15,15,17,.26);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--olive);color:var(--olive);transform:translateY(-2px)}
+  .btn-line{border-color:rgba(255,255,255,.45);color:#fff}
+  .btn-line:hover{border-color:var(--sage);color:var(--sage-l);transform:translateY(-2px)}
+  .btns{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:#141517}
+  #heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+  .hero::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:radial-gradient(90% 70% at 80% 10%,rgba(164,172,124,.14),transparent 55%),
+      linear-gradient(180deg,rgba(20,21,23,.55) 0%,rgba(20,21,23,.08) 34%,rgba(20,21,23,.45) 64%,rgba(20,21,23,.92) 90%,#141517 100%)}
+  .hero-inner{position:relative;z-index:3;width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad) clamp(60px,10vh,116px)}
+  .hero .eyebrow{color:var(--on-dark)}
+  .hero h1{font-size:clamp(2.6rem,6.6vw,5.9rem);max-width:15ch;margin:.34em 0 .42em;color:#fff}
+  .hero h1 em{color:var(--on-dark)}
+  .hero .lede{max-width:54ch;font-size:clamp(1rem,1.3vw,1.18rem);font-weight:300;color:rgba(255,255,255,.76);margin-bottom:2.1em}
+  .scrollcue{position:absolute;right:var(--pad);bottom:28px;z-index:3;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:10px}
+  .scrollcue .bar{width:1px;height:34px;background:linear-gradient(var(--sage),transparent);animation:drop 2.2s infinite}
+  @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  /* ===== AFFILIATE STRIP ===== */
+  .annc{background:var(--ink);color:rgba(255,255,255,.78);border-top:1px solid var(--line-d)}
+  .annc .wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding-block:15px}
+  .annc .tag{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:var(--sage);border-radius:100px;padding:5px 12px;font-weight:600}
+  .annc p{font-size:.88rem;font-weight:300}
+  .annc a{margin-left:auto;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--on-dark);white-space:nowrap}
+  .annc a:hover{color:#fff}
+
+  /* ===== STATS ===== */
+  .stats{padding:clamp(52px,6.5vw,90px) 0}
+  .stats .head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(28px,3.5vw,46px)}
+  .stats .head p{max-width:40ch;color:var(--muted);font-weight:300;font-size:.96rem}
+  .statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:8px;padding:clamp(24px,2.4vw,36px) clamp(20px,2vw,28px);transition:transform .38s var(--ease),border-color .38s,box-shadow .38s}
+  .stat:hover{transform:translateY(-4px);border-color:rgba(102,112,58,.4);box-shadow:0 22px 44px -30px rgba(30,34,14,.35)}
+  .stat .num{font-weight:650;font-size:clamp(2.5rem,4.3vw,3.9rem);line-height:1;letter-spacing:-.02em;color:var(--olive);white-space:nowrap}
+  .stat .num small{font-size:.42em;font-weight:600;letter-spacing:.02em;margin-left:4px;color:var(--olive-d)}
+  .stat .lbl{margin-top:14px;font-size:.86rem;color:var(--muted);font-weight:300;max-width:26ch}
+  .stat .lbl b{display:block;color:#111114;font-weight:600;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+
+  /* ===== CARDS ===== */
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:clamp(28px,3.5vw,44px)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(28px,3.5vw,44px)}
+  .grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:clamp(28px,3.5vw,44px)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:clamp(22px,2.4vw,32px);position:relative;overflow:hidden;
+    transition:transform .38s var(--ease),border-color .38s,box-shadow .38s}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--olive);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+  .card:hover{transform:translateY(-5px);border-color:rgba(15,15,17,.16);box-shadow:0 26px 50px -30px rgba(30,34,14,.34)}
+  .card:hover::before{transform:scaleX(1)}
+  .card .n{font-size:.66rem;letter-spacing:.18em;color:var(--olive);font-weight:600;text-transform:uppercase}
+  .card h3{font-weight:600;font-size:1.14rem;letter-spacing:-.01em;color:#111114;margin:.55em 0 .4em;line-height:1.3}
+  .card p{font-size:.9rem;color:var(--muted);font-weight:300;line-height:1.62}
+  .ico{width:46px;height:46px;border-radius:50%;background:#EEF0E6;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--olive)}
+  .ico svg{width:22px;height:22px}
+  .tone-mist .card{border-color:rgba(15,15,17,.07)}
+
+  /* ===== DARK PANEL ===== */
+  .blk{background:var(--ink);border-radius:18px;padding:clamp(30px,4.4vw,64px) clamp(24px,4vw,64px);position:relative;overflow:hidden;color:#fff}
+  .blk::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(110% 70% at 85% 0%,rgba(164,172,124,.13),transparent 60%)}
+  .blk>*{position:relative;z-index:1}
+  .blk .eyebrow{color:var(--on-dark)}
+  .blk .display{color:#fff}
+  .blk .display em{color:var(--on-dark)}
+  .blk .sub{color:rgba(255,255,255,.66)}
+  .blk p{color:rgba(255,255,255,.72)}
+  .callout{margin-top:clamp(18px,2vw,26px);background:var(--olive);color:#fff;border-radius:10px;padding:clamp(18px,2vw,26px) clamp(20px,2.4vw,32px);font-weight:600;font-size:clamp(1rem,1.5vw,1.22rem);letter-spacing:-.005em;line-height:1.4}
+
+  /* ===== PROCESS STEPS ===== */
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:clamp(28px,3.5vw,44px);counter-reset:s}
+  .step{background:#fff;border:1px solid var(--line);border-radius:10px;padding:clamp(20px,2vw,26px);position:relative;min-height:190px;display:flex;flex-direction:column;
+    transition:transform .38s var(--ease),border-color .38s,box-shadow .38s}
+  .step:hover{transform:translateY(-4px);box-shadow:0 22px 44px -30px rgba(30,34,14,.35)}
+  .step .sn{position:absolute;top:18px;right:20px;font-weight:600;font-size:1.05rem;color:#D3D5CE}
+  .step h3{font-weight:600;font-size:1.06rem;color:#111114;margin:.2em 0 .35em}
+  .step p{font-size:.84rem;color:var(--muted);font-weight:300;line-height:1.55}
+  .step.final{background:var(--olive);border-color:var(--olive)}
+  .step.final h3{color:#fff}.step.final p{color:rgba(255,255,255,.82)}.step.final .sn{color:rgba(255,255,255,.6)}
+  .step.final .ico{background:#fff}
+  .step:not(:last-child)::after{content:"";position:absolute;right:-9px;top:50%;width:6px;height:6px;border-right:1.5px solid var(--sage);border-top:1.5px solid var(--sage);transform:translateY(-50%) rotate(45deg);z-index:2}
+
+  /* ===== SPLIT ===== */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,84px);align-items:center}
+  .split .txt h2{font-size:clamp(1.8rem,3.5vw,2.8rem);margin:.35em 0 .5em}
+  .split .txt p{color:var(--muted);font-weight:300;margin-bottom:1em;max-width:52ch}
+  .split .txt p strong{color:#111114;font-weight:500}
+  .blk .split .txt p{color:rgba(255,255,255,.72)}
+  .blk .split .txt p strong{color:#fff}
+
+  .checks{display:grid;gap:10px;margin-top:14px}
+  .checks div{font-size:.92rem;color:#2c2d31;display:flex;gap:10px;align-items:flex-start;line-height:1.5;font-weight:400}
+  .checks div::before{content:"\2713";color:var(--olive);font-weight:700;flex:none}
+  .blk .checks div{color:rgba(255,255,255,.82)}
+  .blk .checks div::before{color:var(--on-dark)}
+
+  /* ===== LIFECYCLE INTERACTIVE ===== */
+  .lc{background:var(--ink);border-radius:18px;padding:clamp(28px,4vw,56px) clamp(22px,3.6vw,56px);color:#fff;position:relative;overflow:hidden}
+  .lc::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(100% 70% at 10% 0%,rgba(164,172,124,.12),transparent 60%)}
+  .lc>*{position:relative;z-index:1}
+  .lc-head{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,60px);align-items:end}
+  .lc-head .eyebrow{color:var(--on-dark)}
+  .lc-head h2{color:#fff;font-size:clamp(1.8rem,3.6vw,2.8rem);margin:.35em 0 .35em}
+  .lc-head h2 em{color:var(--on-dark)}
+  .lc-head p{color:rgba(255,255,255,.68);font-weight:300;max-width:48ch}
+  .lc-ro{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .ro{border-top:1px solid rgba(255,255,255,.16);padding-top:12px}
+  .ro .k{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:600}
+  .ro .v{font-weight:600;font-size:clamp(1.6rem,2.8vw,2.3rem);line-height:1.05;margin-top:6px;letter-spacing:-.02em}
+  .ro .v small{font-size:.42em;color:var(--on-dark);letter-spacing:.06em;margin-left:4px;font-weight:600}
+  .lanes{margin-top:clamp(28px,3.4vw,44px);display:grid;gap:18px}
+  .lane-l{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+  .lane-l span{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.6)}
+  .lane-l b{font-size:.82rem;font-weight:500;color:#fff}
+  .lane{position:relative;height:46px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);overflow:hidden}
+  .lane .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,rgba(164,172,124,.12),rgba(164,172,124,.22))}
+  .lane.wood .fill{background:linear-gradient(90deg,rgba(196,150,96,.10),rgba(196,150,96,.22))}
+  .tk{position:absolute;top:7px;bottom:7px;width:12px;margin-left:-6px;border-radius:3px;background:rgba(255,255,255,.14);transition:background .3s,transform .3s,box-shadow .3s}
+  .lane.wood .tk.on{background:#C49660;box-shadow:0 0 14px rgba(196,150,96,.5);transform:scaleY(1.08)}
+  .lane.enc .tk{width:auto;right:7px;left:7px;margin-left:0;background:rgba(164,172,124,.16)}
+  .lane.enc .tk.on{background:linear-gradient(90deg,var(--olive),var(--sage))}
+  .ph{position:absolute;top:-6px;bottom:-6px;width:2px;background:#fff;left:0;margin-left:-1px;box-shadow:0 0 10px rgba(255,255,255,.6);pointer-events:none}
+  .lc-axis{display:flex;justify-content:space-between;margin-top:8px;font-size:.6rem;letter-spacing:.12em;color:rgba(255,255,255,.4);font-weight:500}
+  .lc-ctrl{display:flex;align-items:center;gap:16px;margin-top:clamp(20px,2.4vw,30px);flex-wrap:wrap}
+  .lc-ctrl input[type=range]{flex:1;min-width:200px}
+  input[type=range]{-webkit-appearance:none;appearance:none;height:2px;background:rgba(255,255,255,.28);border-radius:2px;outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--sage);cursor:pointer;box-shadow:0 0 0 6px rgba(164,172,124,.2)}
+  input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radius:50%;background:var(--sage);cursor:pointer}
+  .play{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.25s;flex:none}
+  .play:hover{background:var(--olive);border-color:var(--olive)}
+  .play svg{width:14px;height:14px}
+  .seg{display:inline-flex;border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:3px}
+  .seg button{background:transparent;border:0;color:rgba(255,255,255,.6);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 13px;border-radius:100px;cursor:pointer;font-weight:600;transition:.25s}
+  .seg button.on{background:rgba(255,255,255,.12);color:#fff}
+  .seg-l{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:600}
+  .lc-note{margin-top:16px;font-size:.66rem;color:rgba(255,255,255,.38);letter-spacing:.03em}
+
+  /* ===== COMPARISON TABLE ===== */
+  .tbl-wrap{margin-top:clamp(28px,3.5vw,44px);border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.92rem}
+  .cmp th{background:var(--ink);color:#fff;text-align:left;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;padding:16px 20px}
+  .cmp th.enc{background:var(--olive)}
+  .cmp td{padding:16px 20px;border-top:1px solid var(--line);vertical-align:top;color:#3c3e42;font-weight:300;line-height:1.5}
+  .cmp td:first-child{font-weight:600;color:#111114}
+  .cmp td.enc{background:#F6F7F1;color:var(--olive-d);font-weight:500}
+  .cmp tr:hover td{background:#FAFAF8}
+  .cmp tr:hover td.enc{background:#EEF0E5}
+
+  /* ===== PRODUCT TILES ===== */
+  .prod{display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:auto auto;gap:14px;margin-top:clamp(28px,3.5vw,44px)}
+  .pt{border-radius:14px;overflow:hidden;position:relative;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;
+    transition:transform .38s var(--ease),box-shadow .38s,border-color .38s}
+  .pt:hover{transform:translateY(-5px);box-shadow:0 28px 52px -30px rgba(30,34,14,.36);border-color:rgba(15,15,17,.16)}
+  .pt.feature{grid-row:span 2;background:var(--ink);border-color:var(--ink);color:#fff}
+  .pt-art{aspect-ratio:16/9;background:linear-gradient(160deg,#2B2D30,#1C1D1F);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  .pt.feature .pt-art{aspect-ratio:auto;flex:1;min-height:260px}
+  .pt-art svg{width:78%;max-width:440px;height:auto}
+  .pt-body{padding:clamp(20px,2.2vw,28px)}
+  .pt-cat{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--olive);font-weight:600}
+  .pt.feature .pt-cat{color:var(--on-dark)}
+  .pt h3{font-weight:600;font-size:1.2rem;letter-spacing:-.01em;color:#111114;margin:.45em 0 .4em}
+  .pt.feature h3{color:#fff;font-size:clamp(1.4rem,2vw,1.8rem)}
+  .pt p{font-size:.88rem;color:var(--muted);font-weight:300;line-height:1.62}
+  .pt.feature p{color:rgba(255,255,255,.7)}
+  .chip{display:inline-block;margin-top:14px;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;padding:5px 11px;border-radius:100px;border:1px solid rgba(102,112,58,.45);color:var(--olive)}
+  .pt.feature .chip{background:var(--sage);border-color:var(--sage);color:var(--ink)}
+  .pt-mkt{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:.8rem;color:var(--soft);font-weight:300}
+  .pt-mkt b{display:block;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-bottom:3px}
+  .pt.feature .pt-mkt{border-top-color:rgba(255,255,255,.12);color:rgba(255,255,255,.55)}
+  .pt.feature .pt-mkt b{color:rgba(255,255,255,.45)}
+
+  /* ===== MOAT / SYSTEM ===== */
+  .sys{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:clamp(30px,3.6vw,48px);border-top:1px solid rgba(255,255,255,.14)}
+  .sys .c{padding:clamp(22px,2.4vw,30px) clamp(16px,2vw,26px) clamp(20px,2vw,26px) 0;border-right:1px solid rgba(255,255,255,.1)}
+  .sys .c:nth-child(4n){border-right:0}
+  .sys .c:nth-child(n+5){border-top:1px solid rgba(255,255,255,.1)}
+  .sys .c:not(:nth-child(4n+1)){padding-left:clamp(16px,2vw,26px)}
+  .sys .c .k{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--on-dark);font-weight:600}
+  .sys .c h3{font-weight:600;font-size:1.04rem;color:#fff;margin:.7em 0 .4em}
+  .sys .c p{font-size:.85rem;color:rgba(255,255,255,.58);font-weight:300;line-height:1.6}
+
+  /* ===== VALIDATION BIG ROW ===== */
+  .vbig{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:clamp(28px,3.5vw,44px)}
+  .gauge{background:#fff;border:1px solid var(--line);border-radius:12px;padding:clamp(22px,2.4vw,30px)}
+  .gauge .k{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--olive);font-weight:600}
+  .gauge h3{font-weight:600;font-size:1.08rem;color:#111114;margin:.5em 0 .5em}
+  .gauge p{font-size:.86rem;color:var(--muted);font-weight:300;line-height:1.6}
+  .bar{margin-top:18px}
+  .bar-row{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:12px;margin-top:10px;font-size:.78rem;color:#3c3e42}
+  .bar-row .tr{height:10px;border-radius:10px;background:#EEEFEA;overflow:hidden}
+  .bar-row .tr i{display:block;height:100%;border-radius:10px;background:#BFC2B8;width:0;transition:width 1.4s var(--ease)}
+  .bar-row.enc .tr i{background:linear-gradient(90deg,var(--olive),var(--sage))}
+  .bar-row b{font-weight:600;color:#111114;font-size:.82rem}
+
+  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:clamp(28px,3.5vw,44px);position:relative}
+  .timeline::before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:linear-gradient(90deg,var(--olive) 0%,var(--olive) 62%,#D4D6CE 62%)}
+  .tl{padding-right:clamp(14px,2vw,28px);position:relative}
+  .tl .dot{width:32px;height:32px;border-radius:50%;background:var(--olive);border:4px solid var(--mist);position:relative;z-index:1;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;font-weight:700}
+  .tl.next .dot{background:#fff;border-color:#D4D6CE;color:var(--soft);box-shadow:inset 0 0 0 2px #D4D6CE}
+  .tl .st{display:inline-block;margin-top:16px;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--olive)}
+  .tl.next .st{color:var(--soft)}
+  .tl h3{font-weight:600;font-size:1.04rem;color:#111114;margin:.35em 0 .35em}
+  .tl p{font-size:.85rem;color:var(--muted);font-weight:300;line-height:1.6}
+
+  /* ===== FEEDSTOCK BIG NUMBER ===== */
+  .bignum{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .bignum b{font-weight:650;font-size:clamp(3.4rem,8vw,6.6rem);letter-spacing:-.03em;line-height:.9;color:var(--on-dark)}
+  .bignum span{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600;max-width:20ch}
+
+  .loop{position:relative;aspect-ratio:1/1;max-width:440px;margin:0 auto;width:100%}
+  .loop svg{width:100%;height:100%}
+
+  /* ===== TEAM ===== */
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);margin-top:clamp(28px,3.5vw,44px)}
+  .member{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;
+    transition:transform .38s var(--ease),box-shadow .38s,border-color .38s}
+  .member:hover{transform:translateY(-6px);border-color:rgba(15,15,17,.18);box-shadow:0 28px 52px -32px rgba(30,34,14,.36)}
+  .member .photo{aspect-ratio:1/1;background:#EEEFEA;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .member .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%}
+  .member .photo.has-img .mono{display:none}
+  .member .mono{font-weight:500;font-size:2.2rem;color:rgba(20,20,22,.24)}
+  .member .rank{position:absolute;top:10px;left:12px;z-index:2;font-size:.6rem;letter-spacing:.1em;color:#6a6a6e;background:rgba(255,255,255,.86);padding:2px 8px;border-radius:100px;font-weight:600}
+  .member .info{padding:16px 16px 18px}
+  .member .nm{font-weight:600;font-size:1.06rem;color:#111114;letter-spacing:-.01em;line-height:1.2;transition:color .25s}
+  .member:hover .nm{color:var(--olive)}
+  .member .ti{font-size:.8rem;color:var(--muted);font-weight:300;margin-top:5px;line-height:1.35}
+  .member .view{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--olive);margin-top:12px;font-weight:600;opacity:0;transform:translateX(-4px);transition:.3s}
+  .member:hover .view{opacity:1;transform:none}
+
+  .bio-overlay{position:fixed;inset:0;z-index:200;background:rgba(10,10,12,.5);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .45s,visibility .45s}
+  .bio-overlay.open{opacity:1;visibility:visible}
+  .bio-panel{position:fixed;top:0;left:0;bottom:0;z-index:201;width:min(92vw,460px);background:#fff;transform:translateX(-102%);transition:transform .5s cubic-bezier(.16,.84,.28,1);box-shadow:none;visibility:hidden;display:flex;flex-direction:column;overflow-y:auto}
+  .bio-panel.open{transform:none;visibility:visible;box-shadow:30px 0 80px rgba(0,0,0,.35)}
+  .bp-photo{aspect-ratio:16/11;background:#EEEFEA;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;overflow:hidden}
+  .bp-photo img{display:none;width:100%;height:auto;max-height:62vh;object-fit:contain}
+  .bp-photo.has-img{aspect-ratio:auto}
+  .bp-photo.has-img img{display:block}
+  .bp-photo.has-img .mono{display:none}
+  .bp-photo .mono{font-size:3.4rem;color:rgba(20,20,22,.28);font-weight:500}
+  .bio-close{position:absolute;top:16px;right:16px;z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid rgba(15,15,17,.15);background:#fff;color:var(--text);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:.25s}
+  .bio-close:hover{background:var(--olive);color:#fff;border-color:var(--olive);transform:rotate(90deg)}
+  .bp-body{padding:clamp(24px,3vw,38px);display:flex;flex-direction:column;flex:1}
+  .bp-rank{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--olive);font-weight:600}
+  .bp-name{font-weight:600;font-size:clamp(1.6rem,3vw,2.05rem);margin:.35em 0 .12em;letter-spacing:-.015em;color:#111114}
+  .bp-title{font-size:.95rem;color:var(--muted);font-weight:300}
+  .bp-rule{height:1px;background:var(--line);margin:22px 0}
+  .bp-bio{font-size:.97rem;font-weight:300;color:#3c3e42;line-height:1.72}
+  .bp-contact{margin-top:auto;padding-top:26px}
+  .bp-contact a{display:inline-flex;font-size:.72rem;letter-spacing:.08em;color:var(--olive);border:1px solid var(--line);border-radius:100px;padding:11px 18px;cursor:pointer;transition:.25s;font-weight:500}
+  .bp-contact a:hover{background:var(--olive);color:#fff;border-color:var(--olive)}
+
+  /* ===== CTA + CONTACT ===== */
+  .cta{text-align:center;padding:clamp(56px,7vw,96px) 0;background:var(--cloud);border-top:1px solid rgba(102,112,58,.25)}
+  .cta h2{font-size:clamp(2.1rem,5.4vw,4.2rem);margin:.3em auto .1em;max-width:17ch}
+  .cta p{color:var(--muted);font-weight:300;max-width:48ch;margin:1.2em auto 2em}
+  .cta .btns{justify-content:center}
+  .contact-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,80px);align-items:start;margin-top:clamp(28px,3.5vw,44px)}
+  .cform{display:grid;gap:16px}
+  .cform .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .cform label{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:7px;font-weight:600}
+  .cform input,.cform textarea,.cform select{width:100%;background:#fff;border:1px solid rgba(15,15,17,.18);border-radius:10px;padding:13px 15px;color:var(--text);font-family:var(--sans);font-size:.95rem}
+  .cform input:focus,.cform textarea:focus,.cform select:focus{outline:none;border-color:var(--olive);box-shadow:0 0 0 3px rgba(102,112,58,.14)}
+  .cform textarea{min-height:130px;resize:vertical}
+  .cf-status{font-size:.78rem;display:none}
+  .cf-status.show{display:block}
+  .cf-status.ok{color:#2E7A4B}.cf-status.err{color:#B2412E}
+  .ccards{display:grid;gap:12px}
+  .ccard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+  .ccard .k{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--olive);font-weight:600}
+  .ccard .v{font-size:.95rem;font-weight:300;color:#242428;margin-top:8px;line-height:1.6}
+  .ccard a:hover{color:var(--olive)}
+
+  /* ===== FOOTER ===== */
+  footer.site{background:var(--ink);color:rgba(255,255,255,.62);padding:clamp(48px,6vw,76px) 0 34px}
+  .foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px;padding-bottom:38px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .foot-top .about{font-weight:300;font-size:.88rem;max-width:38ch;color:rgba(255,255,255,.5);margin-top:16px}
+  footer .brand{color:#fff}
+  .fcol h4{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--on-dark);margin-bottom:16px;font-weight:600}
+  .fcol a{display:block;font-size:.88rem;font-weight:300;padding:5px 0;color:rgba(255,255,255,.7);cursor:pointer;transition:color .2s}
+  .fcol a:hover{color:#fff}
+  .f-hq{display:block;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);font-size:.85rem;font-weight:300;line-height:1.55}
+  .f-hq b{display:block;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:5px;font-weight:600}
+  .foot-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:22px;font-size:.68rem;letter-spacing:.06em;color:rgba(255,255,255,.42)}
+
+  a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--olive);outline-offset:3px;border-radius:4px}
+  ::-webkit-scrollbar{width:11px}
+  ::-webkit-scrollbar-track{background:#F4F4F1}
+  ::-webkit-scrollbar-thumb{background:#CFD1C8;border-radius:99px;border:3px solid #F4F4F1}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:1080px){
+    .statgrid,.vbig{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:repeat(2,1fr)}
+    .step::after{display:none}
+    .grid5{grid-template-columns:repeat(2,1fr)}
+    .team-grid{grid-template-columns:repeat(3,1fr)}
+    .sys{grid-template-columns:repeat(2,1fr)}
+    .sys .c{border-right:0!important;padding-left:0!important;border-top:1px solid rgba(255,255,255,.1)}
+    .sys .c:nth-child(odd){padding-right:clamp(16px,2vw,26px)!important}
+    .prod{grid-template-columns:1fr 1fr}
+    .pt.feature{grid-column:span 2;grid-row:auto}
+  }
+  @media(max-width:900px){
+    .grid2,.grid3,.split,.lc-head,.contact-grid{grid-template-columns:1fr}
+    .timeline{grid-template-columns:1fr 1fr;row-gap:30px}
+    .timeline::before{display:none}
+    .foot-top{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:760px){
+    nav.links{position:fixed;top:var(--navh,64px);left:0;right:0;background:#fff;color:var(--text);flex-direction:column;align-items:stretch;gap:0;padding:8px 20px 22px;
+      transform:translateY(-12px);opacity:0;pointer-events:none;transition:transform .35s var(--ease),opacity .28s;box-shadow:0 26px 50px rgba(0,0,0,.18);max-height:calc(100vh - var(--navh,64px));overflow-y:auto}
+    nav.links.open{transform:none;opacity:1;pointer-events:auto}
+    nav.links a{font-size:1rem;padding:15px 4px;border-top:1px solid rgba(15,15,17,.08)}
+    nav.links a:first-child{border-top:0}
+    nav.links a.active{color:var(--olive)}
+    nav.links a.active::after{display:none}
+    nav.links a.nav-cta{margin-top:14px;justify-content:center;border-color:var(--olive)!important;color:var(--olive)}
+    .burger{display:flex}
+    header.nav.menuopen{background:#fff;color:var(--text)}
+    header.nav.menuopen .burger span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    header.nav.menuopen .burger span:nth-child(2){opacity:0}
+    header.nav.menuopen .burger span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+    .statgrid,.vbig,.steps,.grid5,.team-grid,.prod,.timeline{grid-template-columns:1fr}
+    .pt.feature{grid-column:auto}
+    .sys{grid-template-columns:1fr}
+    .sys .c{padding-right:0!important}
+    .lc-ro{grid-template-columns:1fr 1fr 1fr}
+    .cform .row{grid-template-columns:1fr}
+    .annc a{margin-left:0}
+    .scrollcue{display:none}
+    .tbl-wrap{overflow-x:auto}
+    table.cmp{min-width:620px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- Reusable logo mark -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark" viewBox="0 0 64 72">
+      <g>
+        <polygon fill="var(--mk,#fff)" points="2,16 30,2 36,5 8,19"/>
+        <polygon fill="#A4AC7C" points="2,16 8,19 8,54 2,51"/>
+        <polygon fill="var(--mk,#fff)" points="14,24 42,10 48,13 20,27"/>
+        <polygon fill="#A4AC7C" points="14,24 20,27 20,60 14,57"/>
+        <polygon fill="var(--mk,#fff)" points="26,32 54,18 60,21 32,35"/>
+        <polygon fill="#8C955F" points="26,32 32,35 32,52 26,49"/>
+        <polygon fill="#66703A" points="20,48 50,33 56,36 26,51" opacity=".85"/>
+        <polygon fill="#66703A" points="20,58 50,43 56,46 26,61" opacity=".85"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="brand" data-nav="home" tabindex="0" aria-label="Encell Composites home">
+    <svg viewBox="0 0 64 72"><use href="#mark"/></svg>
+    <div class="bw"><b>ENCELL</b><span>Composites</span></div>
+  </div>
+  <nav class="links" id="links">
+    <a data-nav="home">Home</a>
+    <a data-nav="crosstie">The Crosstie</a>
+    <a data-nav="technology">Technology</a>
+    <a data-nav="performance">Performance</a>
+    <a data-nav="products">Products</a>
+    <a data-nav="sustainability">Sustainability</a>
+    <a data-nav="team">Team</a>
+    <a class="nav-cta" data-nav="contact">Contact</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+
+<!-- ======================= HOME ======================= -->
+<main class="page active" id="page-home">
+  <section class="hero">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <span class="eyebrow">Encell Composites</span>
+      <h1 class="display">Scrap tires, re-engineered into <em>infrastructure.</em></h1>
+      <p class="lede">Encell converts scrap-tire rubber into patented thermoset composite products. Our first is the GFR20 railroad crosstie: tested to AREMA Chapter 30 and built to be installed once.</p>
+      <div class="btns">
+        <a class="btn btn-primary" data-nav="crosstie">Explore the crosstie &#8594;</a>
+        <a class="btn btn-line" data-nav="technology">The technology</a>
+      </div>
+    </div>
+    <div class="scrollcue"><span class="bar"></span>Scroll</div>
+  </section>
+
+  <div class="annc">
+    <div class="wrap">
+      <span class="tag">Affiliate</span>
+      <p>Encell Composites is an affiliate of Microtec Development &amp; Holdings.</p>
+      <a href="https://microtecdhus.com" target="_blank" rel="noopener">microtecdhus.com &#8599;</a>
+    </div>
+  </div>
+
+  <section class="stats">
+    <div class="wrap">
+      <div class="head reveal">
+        <div>
+          <span class="eyebrow">Encell, by the numbers</span>
+          <h2 class="display" style="font-size:clamp(1.7rem,3.3vw,2.6rem);margin-top:.4em">Validated where it counts.</h2>
+        </div>
+        <p>Railroads do not buy unproven track components. GFR20 has been put through the industry's engineering gate and real tonnage.</p>
+      </div>
+      <div class="statgrid reveal">
+        <div class="stat"><div class="num"><span data-count="182">0</span><small>MGT</small></div><div class="lbl"><b>Track testing</b>Million gross tons accumulated in track testing at Pueblo, Colorado</div></div>
+        <div class="stat"><div class="num"><span data-count="100" data-suffix="%">0</span></div><div class="lbl"><b>AREMA Chapter 30</b>Of the laboratory and in-track test battery passed</div></div>
+        <div class="stat"><div class="num"><span data-count="4122" data-comma="1">0</span><small>LB</small></div><div class="lbl"><b>Spike pullout</b>Measured resistance, against a 3,500 lb AREMA minimum</div></div>
+        <div class="stat"><div class="num"><span data-count="60">0</span><small>YRS</small></div><div class="lbl"><b>Design service life</b>Stated life, compared with 8 to 12 years for wood</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tone-mist">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">The problem</span>
+        <h2 class="display">The issue is not the tie. <em>It's the replacement cycle.</em></h2>
+        <p class="sub">The U.S. rail network replaces roughly 20 million crossties a year, and wood still makes up the large majority of them. Wood is easy to buy and hard to own: over a long track life, the same tie position is disturbed again and again.</p>
+      </div>
+      <div class="grid5 reveal">
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Short service life</h3><p>8 to 12 years in mainline service, so each position needs several installations over a track's life.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></div><h3>Repeated track access</h3><p>Every replacement takes a maintenance window, a crew and network availability.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></div><h3>Creosote treatment</h3><p>Preservatives bring handling, worker-exposure and regulatory burden across the asset's life.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg></div><h3>No end-of-life path</h3><p>Treated wood cannot be recycled. It goes to landfill or incineration.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22V12M12 12l-5-5M12 12l5-4M7 7l-2 1M17 8l2-1"/><path d="M12 4l3 4H9z"/></svg></div><h3>Degrading raw material</h3><p>Old-growth timber is scarce, and new-growth wood carries the shortest service life.</p></div>
+      </div>
+      <div class="callout reveal">A railroad does not need a better tie. It needs to stop replacing the same one.</div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="lc reveal" id="lifecycle">
+        <div class="lc-head">
+          <div>
+            <span class="eyebrow">Track life, visualized</span>
+            <h2 class="display">Sixty years of track. <em>One installation.</em></h2>
+            <p>Drag through a 60-year track life and watch how often a wood tie position is disturbed compared with a single GFR20 installation. Set the wood service life to see the range.</p>
+          </div>
+          <div class="lc-ro">
+            <div class="ro"><div class="k">Track year</div><div class="v" id="lcYear">0</div></div>
+            <div class="ro"><div class="k">Wood installs</div><div class="v" id="lcWood">1</div></div>
+            <div class="ro"><div class="k">GFR20 installs</div><div class="v">1</div></div>
+          </div>
+        </div>
+        <div class="lanes">
+          <div>
+            <div class="lane-l"><span>New-growth wood tie</span><b id="lcWoodTxt">Replaced every 10 years</b></div>
+            <div class="lane wood" id="laneWood"><div class="fill"></div><div class="ph"></div></div>
+          </div>
+          <div>
+            <div class="lane-l"><span>Encell GFR20 composite tie</span><b>Installed once</b></div>
+            <div class="lane enc" id="laneEnc"><div class="fill"></div><div class="tk on"></div><div class="ph"></div></div>
+          </div>
+        </div>
+        <div class="lc-axis"><span>YEAR 0</span><span>15</span><span>30</span><span>45</span><span>60</span></div>
+        <div class="lc-ctrl">
+          <button class="play" id="lcPlay" aria-label="Play timeline"><svg viewBox="0 0 14 14" fill="currentColor"><path d="M3 1.5v11l9-5.5z"/></svg></button>
+          <input type="range" id="lcSlider" min="0" max="60" step="0.1" value="0" aria-label="Track year">
+          <span class="seg-l">Wood life</span>
+          <div class="seg" id="lcSeg"><button data-l="8">8 yrs</button><button data-l="10" class="on">10 yrs</button><button data-l="12">12 yrs</button></div>
+        </div>
+        <p class="lc-note">Illustrative model based on an 8 to 12 year wood service life and the stated GFR20 design life.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tone-mist">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">The Encell solution</span>
+        <h2 class="display">From scrap tire to <em>finished crosstie.</em></h2>
+        <p class="sub">Scrap tires are cryogenically ground to crumb rubber, blended with a thermoset binder, inert filler and fiberglass, then compression-molded into a zero-void finished tie.</p>
+      </div>
+      <div class="steps reveal">
+        <div class="step"><span class="sn">01</span><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div><h3>Collect</h3><p>Scrap tires sourced from established recycling partners.</p></div>
+        <div class="step"><span class="sn">02</span><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></div><h3>Grind</h3><p>Cryogenic grinding to engineered crumb rubber.</p></div>
+        <div class="step"><span class="sn">03</span><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></div><h3>Mix</h3><p>Blended with a thermoset binder, filler and fiberglass.</p></div>
+        <div class="step"><span class="sn">04</span><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></div><h3>Mold</h3><p>Compression-molded with zero internal voids.</p></div>
+        <div class="step final"><span class="sn">05</span><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 3v18M17 3v18M4 7h16M4 12h16M4 17h16"/></svg></div><h3>Crosstie</h3><p>A finished GFR20 composite tie, ready for track.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="blk">
+        <div class="split">
+          <div class="txt reveal">
+            <span class="eyebrow">Thermoset chemistry</span>
+            <h2 class="display">Why earlier alternatives struggled, <em>and GFR20 does not.</em></h2>
+            <p>Thermoplastic ties can be re-melted. Under sustained load and heat they can creep, warp and let track gauge widen.</p>
+            <p><strong>Encell's binder forms permanent chemical cross-links.</strong> Once molded, the part cannot be re-melted, which is what lets a rubber-based tie hold rail geometry in heavy-haul service rather than only in yards or low-tonnage track.</p>
+            <a class="btn btn-line" data-nav="technology" style="margin-top:8px">How it's made &#8594;</a>
+          </div>
+          <div class="reveal">
+            <svg viewBox="0 0 440 320" style="width:100%;height:auto" aria-label="Illustration comparing thermoplastic chains with cross-linked thermoset network">
+              <rect x="0" y="0" width="210" height="320" rx="14" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)"/>
+              <rect x="230" y="0" width="210" height="320" rx="14" fill="rgba(164,172,124,.07)" stroke="rgba(164,172,124,.3)"/>
+              <text x="105" y="34" text-anchor="middle" fill="rgba(255,255,255,.55)" font-size="10" letter-spacing="2.4" font-family="Poppins" font-weight="600">THERMOPLASTIC</text>
+              <text x="335" y="34" text-anchor="middle" fill="#B9C28C" font-size="10" letter-spacing="2.4" font-family="Poppins" font-weight="600">THERMOSET</text>
+              <g stroke="rgba(255,255,255,.45)" stroke-width="2.2" fill="none" stroke-linecap="round">
+                <path d="M24 80 C60 60, 90 110, 130 84 S 180 70, 190 96"/>
+                <path d="M20 130 C55 150, 95 110, 135 138 S 175 150, 192 128"/>
+                <path d="M26 182 C62 160, 100 206, 140 176 S 178 168, 188 194"/>
+                <path d="M22 234 C58 254, 96 214, 136 242 S 176 252, 190 230"/>
+              </g>
+              <text x="105" y="292" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="10.5" font-family="Poppins">Chains slide under heat and load</text>
+              <g stroke="#A4AC7C" stroke-width="2.2" fill="none" stroke-linecap="round">
+                <path d="M254 80 C290 60, 320 110, 360 84 S 410 70, 420 96"/>
+                <path d="M250 130 C285 150, 325 110, 365 138 S 405 150, 422 128"/>
+                <path d="M256 182 C292 160, 330 206, 370 176 S 408 168, 418 194"/>
+                <path d="M252 234 C288 254, 326 214, 366 242 S 406 252, 420 230"/>
+              </g>
+              <g stroke="#E3E7CF" stroke-width="2" stroke-dasharray="0">
+                <line x1="290" y1="76" x2="282" y2="140"/><line x1="350" y1="88" x2="358" y2="132"/><line x1="400" y1="82" x2="404" y2="138"/>
+                <line x1="300" y1="140" x2="296" y2="178"/><line x1="380" y1="140" x2="384" y2="180"/>
+                <line x1="280" y1="174" x2="276" y2="242"/><line x1="340" y1="190" x2="344" y2="230"/><line x1="404" y1="186" x2="408" y2="238"/>
+              </g>
+              <g fill="#E3E7CF">
+                <circle cx="290" cy="76" r="3.6"/><circle cx="282" cy="140" r="3.6"/><circle cx="350" cy="88" r="3.6"/><circle cx="358" cy="132" r="3.6"/><circle cx="400" cy="82" r="3.6"/><circle cx="404" cy="138" r="3.6"/>
+                <circle cx="300" cy="140" r="3.6"/><circle cx="296" cy="178" r="3.6"/><circle cx="380" cy="140" r="3.6"/><circle cx="384" cy="180" r="3.6"/>
+                <circle cx="280" cy="174" r="3.6"/><circle cx="276" cy="242" r="3.6"/><circle cx="340" cy="190" r="3.6"/><circle cx="344" cy="230" r="3.6"/><circle cx="404" cy="186" r="3.6"/><circle cx="408" cy="238" r="3.6"/>
+              </g>
+              <text x="335" y="292" text-anchor="middle" fill="#B9C28C" font-size="10.5" font-family="Poppins">Permanent cross-links hold shape</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tone-mist">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">One materials platform</span>
+        <h2 class="display">One feedstock. One press. <em>Multiple products.</em></h2>
+        <p class="sub">The crosstie is our flagship. The same feedstock, formulation and compression-molding process can produce other heavy-duty products by changing the mold, not the technology.</p>
+      </div>
+      <div class="grid3 reveal">
+        <div class="card" data-nav="products" style="cursor:pointer"><span class="n">In development</span><h3>Construction mats</h3><p>Ground-protection and access mats for oil and gas, mining and utility work sites.</p></div>
+        <div class="card" data-nav="products" style="cursor:pointer"><span class="n">In development</span><h3>Wheel stops</h3><p>Durable parking stops for parking facilities, retail sites and municipalities.</p></div>
+        <div class="card" data-nav="products" style="cursor:pointer"><span class="n">In development</span><h3>Floor tiles</h3><p>Resilient rubber-composite flooring for gyms, schools and industrial spaces.</p></div>
+      </div>
+      <div class="reveal" style="margin-top:26px;display:flex;justify-content:center"><a class="btn btn-ghost" data-nav="products">All products &#8594;</a></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="split">
+        <div class="txt reveal">
+          <span class="eyebrow">Manufacturing</span>
+          <h2 class="display">Built in <em>Connellsville, Pennsylvania.</em></h2>
+          <p>Encell's first manufacturing facility is planned for a site in Connellsville, Pennsylvania that is already permitted for tire-recycling operations.</p>
+          <p>The project brings together <strong>Encell's technology and product</strong>, <strong>Liberty Tire Recycling</strong> for crumb-rubber supply, and <strong>Shallenberger Construction</strong>, established in 1971, for the site, the build and day-to-day operations.</p>
+          <div class="checks">
+            <div>Site permitted for tire-recycling operations</div>
+            <div>Crumb-rubber feedstock from the largest U.S. scrap-tire processor</div>
+            <div>Experienced construction and operations partner</div>
+          </div>
+        </div>
+        <div class="reveal">
+          <svg viewBox="0 0 480 340" style="width:100%;height:auto" aria-label="Map marker for Connellsville, Pennsylvania">
+            <rect width="480" height="340" rx="16" fill="#F4F4F1"/>
+            <g stroke="#D9DBD2" stroke-width="1">
+              <path d="M0 68H480M0 136H480M0 204H480M0 272H480M96 0V340M192 0V340M288 0V340M384 0V340"/>
+            </g>
+            <path d="M58 92 L392 84 L404 98 L420 96 L422 112 L410 128 L414 236 L82 248 L60 240 L54 132 Z" fill="#E8EADF" stroke="#BFC3AF" stroke-width="1.5"/>
+            <text x="238" y="172" text-anchor="middle" fill="#9A9E8A" font-size="13" letter-spacing="5" font-family="Poppins" font-weight="600">PENNSYLVANIA</text>
+            <circle cx="132" cy="218" r="30" fill="rgba(102,112,58,.12)"><animate attributeName="r" values="14;34;14" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0;1" dur="3s" repeatCount="indefinite"/></circle>
+            <circle cx="132" cy="218" r="8" fill="#66703A" stroke="#fff" stroke-width="3"/>
+            <rect x="152" y="252" width="176" height="52" rx="10" fill="#1C1D1F"/>
+            <text x="168" y="274" fill="#B9C28C" font-size="9" letter-spacing="2" font-family="Poppins" font-weight="600">PLANT 1</text>
+            <text x="168" y="292" fill="#fff" font-size="13" font-family="Poppins" font-weight="600">Connellsville, PA</text>
+            <path d="M138 226 L160 256" stroke="#1C1D1F" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta"><div class="wrap">
+    <span class="eyebrow">Get in touch</span>
+    <h2 class="display">Built once. <em>Built to last.</em></h2>
+    <p>Railroad engineers, track owners and partners: tell us about your track and we will share what GFR20 can do on it.</p>
+    <div class="btns"><a class="btn btn-primary" data-nav="contact">Contact Encell &#8594;</a><a class="btn btn-ghost" data-nav="team">Meet the team</a></div>
+  </div></section>
+</main>
+
+<!-- ======================= THE CROSSTIE ======================= -->
+<main class="page" id="page-crosstie">
+  <section class="page-top"><div class="wrap">
+    <span class="eyebrow">The GFR20 crosstie</span>
+    <h1 class="display">A crosstie judged on <em>performance.</em></h1>
+    <p class="sub">The decision to specify a tie is made on service life, geometry retention and long-term performance. GFR20 is built to win on those terms. Its circular feedstock is a benefit the railroad gets without trading anything away.</p>
+  </div></section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="reveal" style="background:var(--ink);border-radius:18px;padding:clamp(24px,4vw,56px);position:relative;overflow:hidden">
+        <svg viewBox="0 0 1000 300" style="width:100%;height:auto" aria-label="GFR20 crosstie illustration with rail and fasteners">
+          <defs>
+            <linearGradient id="tieTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A4D45"/><stop offset="1" stop-color="#2E302C"/></linearGradient>
+            <linearGradient id="tieSide" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#26282A"/><stop offset="1" stop-color="#18191B"/></linearGradient>
+            <pattern id="crumb" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="1" fill="rgba(255,255,255,.06)"/><circle cx="10" cy="9" r="1.2" fill="rgba(164,172,124,.10)"/><circle cx="6" cy="12" r=".8" fill="rgba(255,255,255,.05)"/></pattern>
+          </defs>
+          <polygon points="80,150 920,150 960,190 120,190" fill="url(#tieTop)"/>
+          <polygon points="80,150 920,150 960,190 120,190" fill="url(#crumb)"/>
+          <polygon points="120,190 960,190 960,240 120,240" fill="url(#tieSide)"/>
+          <polygon points="120,190 960,190 960,240 120,240" fill="url(#crumb)"/>
+          <polygon points="80,150 120,190 120,240 80,200" fill="#202123"/>
+          <g>
+            <rect x="250" y="124" width="70" height="40" rx="3" fill="#6E7268"/>
+            <rect x="680" y="124" width="70" height="40" rx="3" fill="#6E7268"/>
+            <rect x="266" y="40" width="38" height="96" fill="#9EA29A"/>
+            <rect x="248" y="36" width="74" height="16" rx="3" fill="#C2C6BE"/>
+            <rect x="696" y="40" width="38" height="96" fill="#9EA29A"/>
+            <rect x="678" y="36" width="74" height="16" rx="3" fill="#C2C6BE"/>
+            <circle cx="238" cy="150" r="6" fill="#A4AC7C"/><circle cx="332" cy="150" r="6" fill="#A4AC7C"/>
+            <circle cx="668" cy="150" r="6" fill="#A4AC7C"/><circle cx="762" cy="150" r="6" fill="#A4AC7C"/>
+          </g>
+          <text x="540" y="222" text-anchor="middle" fill="#B9C28C" font-size="14" letter-spacing="8" font-family="Barlow Condensed, Poppins" font-weight="700">ENCELL GFR20</text>
+          <g font-family="Poppins" font-size="11" fill="rgba(255,255,255,.62)">
+            <line x1="200" y1="150" x2="150" y2="96" stroke="rgba(255,255,255,.3)"/><circle cx="200" cy="150" r="3" fill="#fff"/>
+            <text x="40" y="88">Holds fastening: 4,122 lb pullout</text>
+            <line x1="860" y1="215" x2="900" y2="276" stroke="rgba(255,255,255,.3)"/><circle cx="860" cy="215" r="3" fill="#fff"/>
+            <text x="690" y="292">Zero-void thermoset composite body</text>
+            <line x1="520" y1="170" x2="520" y2="96" stroke="rgba(255,255,255,.3)"/><circle cx="520" cy="170" r="3" fill="#fff"/>
+            <text x="420" y="88">No creosote or preservative</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tone-mist">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Side by side</span>
+        <h2 class="display">GFR20 vs. <em>new-growth wood.</em></h2>
+        <p class="sub">How the two compare on the criteria railroads use to specify a tie.</p>
+      </div>
+      <div class="tbl-wrap reveal">
+        <table class="cmp">
+          <thead><tr><th>Criterion</th><th>New-growth wood tie</th><th class="enc">Encell GFR20</th><th>Why it matters</th></tr></thead>
+          <tbody>
+            <tr><td>Service life</td><td>8 to 12 years</td><td class="enc">60 years (stated design life)</td><td>Fewer replacement events per tie position</td></tr>
+            <tr><td>Installations over 60 years</td><td>Several</td><td class="enc">One</td><td>Fewer maintenance windows and less crew exposure</td></tr>
+            <tr><td>Spike pullout resistance</td><td>Degrades with rot and cycling</td><td class="enc">4,122 lb (AREMA minimum 3,500 lb)</td><td>Holds rail fastening through the asset's life</td></tr>
+            <tr><td>Gauge stability</td><td>Degrades as wood decays</td><td class="enc">Thermoset: cannot re-melt or creep</td><td>Protects track geometry</td></tr>
+            <tr><td>Preservative treatment</td><td>Creosote</td><td class="enc">None required</td><td>Removes handling, exposure and regulatory burden</td></tr>
+            <tr><td>End of life</td><td>Landfill or incineration</td><td class="enc">Ground back into new product</td><td>Eliminates a growing disposal problem</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">What a railroad gets</span>
+        <h2 class="display">Fewer replacements, <em>year after year.</em></h2>
+        <p class="sub">The comparison that matters is not the tie on day one. It is how often that tie position has to be disturbed over the life of the track.</p>
+      </div>
+      <div class="grid3 reveal">
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4"/></svg></div><h3>Install once</h3><p>A single installation over the planning horizon instead of a recurring replacement program for the same position.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17h18M6 17V9l6-4 6 4v8"/><path d="M10 17v-4h4v4"/></svg></div><h3>Keep track open</h3><p>Fewer replacement events mean fewer maintenance windows and more network availability.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Safer work</h3><p>Less crew time on track and no creosote handling for the people who install and maintain ties.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta"><div class="wrap">
+    <span class="eyebrow">For railroad engineers</span>
+    <h2 class="display">Put GFR20 <em>in your track.</em></h2>
+    <p>Request technical documentation, test summaries or a conversation with our engineering team.</p>
+    <div class="btns"><a class="btn btn-primary" data-nav="contact">Request information &#8594;</a><a class="btn btn-ghost" data-nav="performance">See the testing</a></div>
+  </div></section>
+</main>
+
+<!-- ======================= TECHNOLOGY ======================= -->
+<main class="page" id="page-technology">
+  <section class="page-top"><div class="wrap">
+    <span class="eyebrow">Technology</span>
+    <h1 class="display">An engineered composite, <em>not a recycled filler.</em></h1>
+    <p class="sub">A patented thermoset formulation turns crumb rubber into a structural material with defined, testable engineering properties.</p>
+  </div></section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="split">
+        <div class="txt reveal">
+          <span class="eyebrow">What goes in</span>
+          <h2 class="display">Four components. <em>One engineered material.</em></h2>
+          <p>Each GFR20 tie combines four constituents, with the binder chemistry, filler and fiber loading tuned to rail loads.</p>
+          <div class="checks">
+            <div><span><strong>Crumb rubber.</strong> Engineered recycled rubber from cryogenically ground scrap tires, the principal raw material.</span></div>
+            <div><span><strong>Inert mineral filler.</strong> Adds mass, stiffness and dimensional stability.</span></div>
+            <div><span><strong>Fiberglass.</strong> Reinforcement that carries load through the tie.</span></div>
+            <div><span><strong>Thermoset binder.</strong> Cures into permanent cross-links so the part cannot re-melt.</span></div>
+          </div>
+        </div>
+        <div class="reveal">
+          <svg viewBox="0 0 420 420" style="width:100%;max-width:440px;height:auto;margin:0 auto" aria-label="Diagram of the four GFR20 components">
+            <circle cx="210" cy="210" r="196" fill="#F4F4F1"/>
+            <circle cx="210" cy="210" r="150" fill="none" stroke="#D6D9CC" stroke-dasharray="3 6"/>
+            <circle cx="210" cy="210" r="74" fill="#1C1D1F"/>
+            <text x="210" y="204" text-anchor="middle" fill="#B9C28C" font-family="Barlow Condensed, Poppins" font-weight="700" font-size="26" letter-spacing="2">GFR20</text>
+            <text x="210" y="226" text-anchor="middle" fill="rgba(255,255,255,.6)" font-family="Poppins" font-size="10" letter-spacing="2">COMPOSITE</text>
+            <g font-family="Poppins" font-weight="600" font-size="12" text-anchor="middle">
+              <circle cx="210" cy="60" r="44" fill="#66703A"/><text x="210" y="57" fill="#fff">Crumb</text><text x="210" y="72" fill="#fff">rubber</text>
+              <circle cx="360" cy="210" r="44" fill="#8C955F"/><text x="360" y="207" fill="#fff">Mineral</text><text x="360" y="222" fill="#fff">filler</text>
+              <circle cx="210" cy="360" r="44" fill="#A4AC7C"/><text x="210" y="364" fill="#1C1D1F">Fiberglass</text>
+              <circle cx="60" cy="210" r="44" fill="#C8CEA6"/><text x="60" y="207" fill="#1C1D1F">Thermoset</text><text x="60" y="222" fill="#1C1D1F">binder</text>
+            </g>
+            <g stroke="#BFC3AF" stroke-width="1.5"><line x1="210" y1="104" x2="210" y2="136"/><line x1="316" y1="210" x2="284" y2="210"/><line x1="210" y1="316" x2="210" y2="284"/><line x1="104" y1="210" x2="136" y2="210"/></g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tone-mist">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">How it's made</span>
+        <h2 class="display">Compression-molded. <em>Zero voids.</em></h2>
+        <p class="sub">A controlled sequence from tire to tie, with mixing, cure profile and quality checks developed in practice.</p>
+      </div>
+      <div class="steps reveal">
+        <div class="step"><span class="sn">01</span><h3>Collect</h3><p>Scrap tires are collected and processed through established recycling partners.</p></div>
+        <div class="step"><span class="sn">02</span><h3>Cryogenic grind</h3><p>Rubber is frozen and ground to engineered crumb, cleanly separated from steel and fiber.</p></div>
+        <div class="step"><span class="sn">03</span><h3>Blend</h3><p>Crumb rubber is combined with filler, fiberglass and the thermoset binder.</p></div>
+        <div class="step"><span class="sn">04</span><h3>Mold and cure</h3><p>The blend is compression-molded and cured into a dense, void-free part.</p></div>
+        <div class="step final"><span class="sn">05</span><h3>Inspect</h3><p>Finished ties are checked against dimensional and quality standards before shipping.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="blk">
+        <div class="sec-head reveal">
+          <span class="eyebrow">A system, not a single patent</span>
+          <h2 class="display">What makes GFR20 <em>hard to replicate.</em></h2>
+          <p class="sub">Formulation without validation cannot be sold. Validation without feedstock cannot scale. Encell brings the full set together.</p>
+        </div>
+        <div class="sys reveal">
+          <div class="c"><span class="k">01 &#183; IP</span><h3>Patents</h3><p>Issued protection on the composite formulation and the finished article.</p></div>
+          <div class="c"><span class="k">02 &#183; Chemistry</span><h3>Thermoset formulation</h3><p>Binder chemistry, filler and fiber loading tuned to rail loads.</p></div>
+          <div class="c"><span class="k">03 &#183; Process</span><h3>Process know-how</h3><p>Mixing, cure profile and quality control developed in practice.</p></div>
+          <div class="c"><span class="k">04 &#183; Testing</span><h3>AREMA validation</h3><p>The full Chapter 30 battery passed, which takes years to repeat.</p></div>
+          <div class="c"><span class="k">05 &#183; Field</span><h3>Track history</h3><p>182 MGT accumulated in track testing, and growing.</p></div>
+          <div class="c"><span class="k">06 &#183; Customers</span><h3>Railroad qualification</h3><p>Customer approval is earned once and carried forward.</p></div>
+          <div class="c"><span class="k">07 &#183; Supply</span><h3>Feedstock partnership</h3><p>Crumb rubber from the largest U.S. scrap-tire processor.</p></div>
+          <div class="c"><span class="k">08 &#183; Scale</span><h3>Manufacturing scale</h3><p>A purpose-built plant designed for high-volume production.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tone-mist">
+    <div class="wrap">
+      <div class="split">
+        <div class="txt reveal">
+          <span class="eyebrow">Part of the Microtec platform</span>
+          <h2 class="display">Backed by decades of <em>rubber processing.</em></h2>
+          <p>Encell is an affiliate of <strong>Microtec Development &amp; Holdings</strong>, whose patented cryogenic milling technology has been used at industrial scale to turn waste tire rubber into engineered recycled rubber powder for nearly two decades.</p>
+          <p>That experience with tire rubber, particle engineering and continuous production sits behind Encell's feedstock and quality approach.</p>
+          <a class="btn btn-ghost" href="https://microtecdhus.com" target="_blank" rel="noopener" style="margin-top:6px">Visit Microtec &#8599;</a>
+        </div>
+        <div class="reveal">
+          <div class="grid2" style="margin-top:0">
+            <div class="card"><span class="n">Cryogenic</span><h3>Clean crumb</h3><p>Freezing rubber before grinding gives clean fracture surfaces and consistent particles.</p></div>
+            <div class="card"><span class="n">Particle control</span><h3>Consistent input</h3><p>Controlled particle size helps the composite cure and perform predictably.</p></div>
+            <div class="card"><span class="n">Circular</span><h3>Waste to value</h3><p>A low-value waste stream becomes a long-life infrastructure product.</p></div>
+            <div class="card"><span class="n">Proven</span><h3>Industrial scale</h3><p>Rubber micronization run continuously in commercial operation.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta"><div class="wrap">
+    <span class="eyebrow">Technical questions</span>
+    <h2 class="display">Talk to our <em>engineering team.</em></h2>
+    <p>Formulation, process and material questions are welcome.</p>
+    <div class="btns"><a class="btn btn-primary" data-nav="contact">Contact us &#8594;</a><a class="btn btn-ghost" data-nav="performance">Performance data</a></div>
+  </div></section>
+</main>
+
+<!-- ======================= PERFORMANCE ======================= -->
+<main class="page" id="page-performance">
+  <section class="page-top"><div class="wrap">
+    <span class="eyebrow">Proven performance</span>
+    <h1 class="display">Tested to the <em>industry's standard.</em></h1>
+    <p class="sub">AREMA Chapter 30 is the rail industry's engineering gate for crossties, and track testing at Pueblo, Colorado is where a product proves it can survive real tonnage. GFR20 has cleared both.</p>
+  </div></section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="vbig reveal">
+        <div class="gauge"><span class="k">AREMA Chapter 30</span><h3>Full test battery passed</h3><p>The complete laboratory and in-track test program for engineered crossties.</p></div>
+        <div class="gauge"><span class="k">182 MGT</span><h3>Track tested at Pueblo</h3><p>Million gross tons of accumulated loading, a record that keeps building.</p></div>
+        <div class="gauge"><span class="k">Thermoset</span><h3>Geometry retention</h3><p>Cross-linked composite that does not re-melt, creep or warp under heat and load.</p></div>
+        <div class="gauge"><span class="k">Spike pullout</span><h3>Exceeds the minimum</h3>
+          <div class="bar" id="pullBars">
+            <div class="bar-row"><span>AREMA min.</span><div class="tr"><i data-w="84.9"></i></div><b>3,500 lb</b></div>
+            <div class="bar-row enc"><span>GFR20</span><div class="tr"><i data-w="100"></i></div><b>4,122 lb</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tone-mist">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">The validation path</span>
+        <h2 class="display">From lab to <em>railroad evaluation.</em></h2>
+        <p class="sub">Every alternative tie has to earn its way into track. This is where GFR20 stands today.</p>
+      </div>
+      <div class="timeline reveal">
+        <div class="tl"><span class="dot">&#10003;</span><span class="st">Complete</span><h3>Technical review</h3><p>Design and material properties assessed against rail requirements.</p></div>
+        <div class="tl"><span class="dot">&#10003;</span><span class="st">Complete</span><h3>Laboratory qualification</h3><p>AREMA Chapter 30 laboratory testing passed.</p></div>
+        <div class="tl"><span class="dot">&#10003;</span><span class="st">Complete</span><h3>Track testing</h3><p>182 MGT accumulated in track testing at Pueblo, Colorado.</p></div>
+        <div class="tl next"><span class="dot">4</span><span class="st">In progress</span><h3>Railroad evaluation</h3><p>Working with railroads on evaluation and revenue-service trials.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="blk">
+        <div class="split">
+          <div class="txt reveal">
+            <span class="eyebrow">Why validation matters</span>
+            <h2 class="display">Railroads buy <em>evidence.</em></h2>
+            <p>A geometry failure is measured in derailment risk, not warranty claims. That is why the industry sets a high bar for any new track component, and why that bar rose after earlier plastic composite ties ran into field problems.</p>
+            <p><strong>Field history is cumulative.</strong> The Chapter 30 battery and meaningful in-track tonnage take years of elapsed time that cannot be compressed, and every additional MGT adds to the record.</p>
+          </div>
+          <div class="reveal">
+            <div class="checks">
+              <div>Complete Chapter 30 test matrix with measured values</div>
+              <div>Track testing history with tonnage accrued and inspection findings</div>
+              <div>Geometry monitoring: gauge, cross-level and rail-seat wear</div>
+              <div>Spike pullout and fastener retention results</div>
+            </div>
+            <p style="margin-top:22px;font-size:.88rem">Technical documentation is available to railroad engineering teams on request.</p>
+            <a class="btn btn-line" data-nav="contact" style="margin-top:10px">Request test summaries &#8594;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta"><div class="wrap">
+    <span class="eyebrow">Evaluate GFR20</span>
+    <h2 class="display">Ready for a <em>trial installation?</em></h2>
+    <p>We work with railroad engineering teams on evaluation and revenue-service trials.</p>
+    <div class="btns"><a class="btn btn-primary" data-nav="contact">Start a conversation &#8594;</a><a class="btn btn-ghost" data-nav="crosstie">The crosstie</a></div>
+  </div></section>
+</main>
+
+<!-- ======================= PRODUCTS ======================= -->
+<main class="page" id="page-products">
+  <section class="page-top"><div class="wrap">
+    <span class="eyebrow">Products</span>
+    <h1 class="display">One press, one feedstock. <em>Only the mold changes.</em></h1>
+    <p class="sub">The railroad crosstie leads. The same feedstock, formulation and compression press extend into other heavy-duty products with new tooling instead of new core technology.</p>
+  </div></section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="prod reveal" style="margin-top:0">
+        <article class="pt feature">
+          <div class="pt-art">
+            <svg viewBox="0 0 400 220"><polygon points="40,100 340,100 370,130 70,130" fill="#4A4D45"/><polygon points="70,130 370,130 370,164 70,164" fill="#232426"/><polygon points="40,100 70,130 70,164 40,134" fill="#1A1B1D"/>
+              <rect x="110" y="72" width="22" height="36" fill="#9EA29A"/><rect x="100" y="66" width="42" height="10" rx="2" fill="#C2C6BE"/>
+              <rect x="262" y="72" width="22" height="36" fill="#9EA29A"/><rect x="252" y="66" width="42" height="10" rx="2" fill="#C2C6BE"/>
+              <text x="220" y="153" text-anchor="middle" fill="#B9C28C" font-family="Barlow Condensed, Poppins" font-weight="700" font-size="11" letter-spacing="5">GFR20</text></svg>
+          </div>
+          <div class="pt-body">
+            <span class="pt-cat">Flagship &#183; Rail</span>
+            <h3>GFR20 Railroad Crosstie</h3>
+            <p>A thermoset composite crosstie molded from scrap-tire rubber. Tested to AREMA Chapter 30 and 182 MGT in track testing, with a stated 60-year design life.</p>
+            <div class="pt-mkt"><b>Markets</b>Class I, regional and short-line railroads; transit, industrial and port track</div>
+            <span class="chip">Validated</span>
+          </div>
+        </article>
+        <article class="pt">
+          <div class="pt-art"><svg viewBox="0 0 400 220"><g transform="translate(60,60)"><polygon points="0,40 200,0 280,40 80,80" fill="#4A4D45"/><polygon points="80,80 280,40 280,62 80,102" fill="#232426"/><polygon points="0,40 80,80 80,102 0,62" fill="#1A1B1D"/><g stroke="rgba(164,172,124,.35)"><line x1="40" y1="32" x2="120" y2="72"/><line x1="80" y1="24" x2="160" y2="64"/><line x1="120" y1="16" x2="200" y2="56"/><line x1="160" y1="8" x2="240" y2="48"/></g></g></svg></div>
+          <div class="pt-body"><span class="pt-cat">Ground protection</span><h3>Construction Mats</h3><p>Heavy-duty access and ground-protection mats for temporary roads and work platforms.</p><div class="pt-mkt"><b>Markets</b>Oil and gas, mining, utilities</div><span class="chip">In development</span></div>
+        </article>
+        <article class="pt">
+          <div class="pt-art"><svg viewBox="0 0 400 220"><g transform="translate(70,80)"><polygon points="0,30 220,0 260,22 40,52" fill="#4A4D45"/><polygon points="40,52 260,22 260,52 40,82" fill="#232426"/><polygon points="0,30 40,52 40,82 0,60" fill="#1A1B1D"/><polygon points="60,30 200,11 210,17 70,36" fill="#C8B34A"/></g></svg></div>
+          <div class="pt-body"><span class="pt-cat">Site furnishings</span><h3>Wheel Stops</h3><p>Durable, weather-resistant parking stops that hold their shape season after season.</p><div class="pt-mkt"><b>Markets</b>Parking facilities, retail, municipal</div><span class="chip">In development</span></div>
+        </article>
+        <article class="pt">
+          <div class="pt-art"><svg viewBox="0 0 400 220"><g transform="translate(100,36)"><g fill="#3A3C3A" stroke="#1C1D1F" stroke-width="2"><polygon points="100,0 200,50 100,100 0,50"/><polygon points="100,50 200,100 100,150 0,100" opacity=".8"/></g><g fill="rgba(164,172,124,.18)"><circle cx="70" cy="50" r="2"/><circle cx="110" cy="40" r="2"/><circle cx="130" cy="62" r="2"/><circle cx="90" cy="70" r="2"/></g></g></svg></div>
+          <div class="pt-body"><span class="pt-cat">Flooring</span><h3>Floor Tiles</h3><p>Resilient interlocking rubber-composite tiles for high-traffic and impact-heavy spaces.</p><div class="pt-mkt"><b>Markets</b>Gyms, schools, industrial facilities</div><span class="chip">In development</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tone-mist">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Why a platform</span>
+        <h2 class="display">Same materials. <em>More uses.</em></h2>
+      </div>
+      <div class="grid3 reveal">
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg></div><h3>Shared process</h3><p>Every product runs on the same compression press, mixing line and crumb-rubber feedstock.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h6v6H4zM14 14h6v6h-6zM14 4h6v6h-6zM4 14h6v6H4z"/></svg></div><h3>New molds, not new tech</h3><p>Additional products are a tooling decision built on a proven formulation and quality system.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></div><h3>More rubber diverted</h3><p>Each new product line gives more scrap-tire rubber a long-life use.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta"><div class="wrap">
+    <span class="eyebrow">Product inquiries</span>
+    <h2 class="display">Have an application <em>in mind?</em></h2>
+    <p>Tell us what you need to build. If it can be molded, we would like to hear about it.</p>
+    <div class="btns"><a class="btn btn-primary" data-nav="contact">Contact Encell &#8594;</a></div>
+  </div></section>
+</main>
+
+<!-- ======================= SUSTAINABILITY ======================= -->
+<main class="page" id="page-sustainability">
+  <section class="page-top"><div class="wrap">
+    <span class="eyebrow">Sustainability</span>
+    <h1 class="display">A waste stream, given a <em>sixty-year job.</em></h1>
+    <p class="sub">Encell's principal raw material is rubber the country is already trying to get rid of. Each tie turns that rubber into durable infrastructure, with no creosote and a path back into new product at end of life.</p>
+  </div></section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="blk">
+        <div class="split">
+          <div class="reveal">
+            <span class="eyebrow">The feedstock</span>
+            <div class="bignum" style="margin:.5em 0 .3em"><b>~450M</b><span>scrap tires generated in the U.S. every year</span></div>
+            <p style="max-width:48ch;margin-top:14px">Tire-derived fuel has long been the largest outlet for that rubber, and it is shrinking as coal generation retires. That leaves a growing volume of scrap tires looking for a durable, high-volume home.</p>
+            <div class="checks" style="margin-top:22px">
+              <div>Rubber diverted from landfill and combustion</div>
+              <div>Locked into a long-life infrastructure asset</div>
+              <div>Supplied through the largest U.S. scrap-tire processor</div>
+            </div>
+          </div>
+          <div class="loop reveal">
+            <svg viewBox="0 0 400 400" aria-label="Circular lifecycle diagram">
+              <defs><marker id="arw" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#A4AC7C"/></marker></defs>
+              <circle cx="200" cy="200" r="138" fill="none" stroke="rgba(164,172,124,.25)" stroke-width="2"/>
+              <path d="M200 62 A138 138 0 0 1 338 200" fill="none" stroke="#A4AC7C" stroke-width="2.5" marker-end="url(#arw)"/>
+              <path d="M338 200 A138 138 0 0 1 200 338" fill="none" stroke="#A4AC7C" stroke-width="2.5" marker-end="url(#arw)"/>
+              <path d="M200 338 A138 138 0 0 1 62 200" fill="none" stroke="#A4AC7C" stroke-width="2.5" marker-end="url(#arw)"/>
+              <path d="M62 200 A138 138 0 0 1 200 62" fill="none" stroke="#A4AC7C" stroke-width="2.5" marker-end="url(#arw)"/>
+              <g font-family="Poppins" text-anchor="middle">
+                <circle cx="200" cy="62" r="40" fill="#26282B" stroke="#66703A" stroke-width="2"/><text x="200" y="60" fill="#fff" font-size="11" font-weight="600">Scrap</text><text x="200" y="74" fill="#fff" font-size="11" font-weight="600">tires</text>
+                <circle cx="338" cy="200" r="40" fill="#26282B" stroke="#66703A" stroke-width="2"/><text x="338" y="198" fill="#fff" font-size="11" font-weight="600">Crumb</text><text x="338" y="212" fill="#fff" font-size="11" font-weight="600">rubber</text>
+                <circle cx="200" cy="338" r="40" fill="#66703A"/><text x="200" y="336" fill="#fff" font-size="11" font-weight="600">60-year</text><text x="200" y="350" fill="#fff" font-size="11" font-weight="600">crosstie</text>
+                <circle cx="62" cy="200" r="40" fill="#26282B" stroke="#66703A" stroke-width="2"/><text x="62" y="198" fill="#fff" font-size="11" font-weight="600">Ground</text><text x="62" y="212" fill="#fff" font-size="11" font-weight="600">back</text>
+                <text x="200" y="196" fill="#B9C28C" font-size="10" letter-spacing="3" font-weight="600">CIRCULAR</text>
+                <text x="200" y="214" fill="rgba(255,255,255,.55)" font-size="10" letter-spacing="3">BY DESIGN</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tone-mist">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Environmental benefits</span>
+        <h2 class="display">Better for track. <em>Better for the planet.</em></h2>
+        <p class="sub">The environmental case comes built in. Railroads choose GFR20 for performance, and the benefits below come with it.</p>
+      </div>
+      <div class="grid2 reveal">
+        <div class="card"><span class="n">01 &#183; Diversion</span><h3>Scrap tires become infrastructure</h3><p>Each tie diverts tire rubber from landfill or combustion into a long-life asset.</p></div>
+        <div class="card"><span class="n">02 &#183; Chemistry</span><h3>No creosote</h3><p>GFR20 needs no preservative treatment, removing creosote handling and exposure across the tie's life.</p></div>
+        <div class="card"><span class="n">03 &#183; Resources</span><h3>Less harvested timber</h3><p>A tie installed once displaces several generations of treated wood ties over the same track life.</p></div>
+        <div class="card"><span class="n">04 &#183; End of life</span><h3>Ground back into new product</h3><p>At end of service, GFR20 can be reground and returned to production instead of landfilled.</p></div>
+      </div>
+      <div class="callout reveal">Recycling is our input advantage and our environmental benefit. What we build is advanced materials for infrastructure.</div>
+    </div>
+  </section>
+
+  <section class="cta"><div class="wrap">
+    <span class="eyebrow">Partner with us</span>
+    <h2 class="display">Keep tires <em>in service.</em></h2>
+    <p>Tire recyclers, sustainability teams and infrastructure owners: let's talk about putting more rubber to work.</p>
+    <div class="btns"><a class="btn btn-primary" data-nav="contact">Contact Encell &#8594;</a></div>
+  </div></section>
+</main>
+
+<!-- ======================= TEAM ======================= -->
+<main class="page" id="page-team">
+  <section class="page-top"><div class="wrap">
+    <span class="eyebrow">Management Team</span>
+    <h1 class="display">The people behind <em>Encell.</em></h1>
+    <p class="sub">Encell is led by the Microtec Development &amp; Holdings team, with experience across materials science, tire recycling, manufacturing, engineering and strategy. Select any team member to read their bio.</p>
+  </div></section>
+  <section class="band tone-mist">
+    <div class="wrap">
+      <div class="team-grid reveal" id="teamGrid" style="margin-top:0"></div>
+    </div>
+  </section>
+  <section class="cta"><div class="wrap">
+    <span class="eyebrow">Work with us</span>
+    <h2 class="display">Built by people who <em>know rubber.</em></h2>
+    <p>Reach the team directly, or send us a message and someone will be in touch within one business day.</p>
+    <div class="btns"><a class="btn btn-primary" data-nav="contact">Contact Encell &#8594;</a></div>
+  </div></section>
+</main>
+
+<!-- ======================= CONTACT ======================= -->
+<main class="page" id="page-contact">
+  <section class="page-top"><div class="wrap">
+    <span class="eyebrow">Get in touch</span>
+    <h1 class="display">Let's talk <em>track.</em></h1>
+    <p class="sub">Railroad engineers, track owners, recyclers and partners: tell us what you are working on and the right person will follow up.</p>
+  </div></section>
+  <section class="band" style="padding-top:clamp(10px,2vw,24px)">
+    <div class="wrap">
+      <div class="contact-grid" style="margin-top:0">
+        <form class="cform" id="contactForm" action="https://formspree.io/f/mgognogv" method="POST">
+          <input type="hidden" name="_subject" value="New Encell Composites website inquiry">
+          <div class="row">
+            <div><label for="cfName">Name</label><input id="cfName" type="text" name="name" placeholder="Your name" autocomplete="name" required></div>
+            <div><label for="cfCo">Company</label><input id="cfCo" type="text" name="company" placeholder="Company" autocomplete="organization"></div>
+          </div>
+          <div class="row">
+            <div><label for="cfEmail">Email</label><input id="cfEmail" type="email" name="email" placeholder="you@company.com" autocomplete="email" required></div>
+            <div><label for="cfTopic">Topic</label>
+              <select id="cfTopic" name="topic">
+                <option>GFR20 crosstie</option><option>Technical documentation</option><option>Other products</option><option>Feedstock and recycling</option><option>General</option>
+              </select></div>
+          </div>
+          <div><label for="cfMsg">How can we help?</label><textarea id="cfMsg" name="message" placeholder="Tell us about your track, project or question" required></textarea></div>
+          <div><button class="btn btn-primary" type="submit" id="cfBtn" style="border:0">Send message &#8594;</button></div>
+          <div class="cf-status" id="cfStatus" role="status" aria-live="polite"></div>
+        </form>
+        <div class="ccards">
+          <div class="ccard"><span class="k">Email</span><div class="v"><a href="mailto:info@microtecdhus.com">info@microtecdhus.com</a><br><span style="font-size:.82rem;color:var(--soft)">Inquiries are handled by Microtec Development &amp; Holdings on behalf of Encell Composites.</span></div></div>
+          <div class="ccard"><span class="k">Plant 1</span><div class="v">Connellsville, Pennsylvania</div></div>
+          <div class="ccard"><span class="k">Headquarters</span><div class="v">1395 Panther Lane, Suite 200<br>Naples, FL 34109</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="brand" data-nav="home" tabindex="0"><svg viewBox="0 0 64 72" style="height:44px"><use href="#mark"/></svg><div class="bw"><b>ENCELL</b><span>Composites, LLC</span></div></div>
+        <p class="about">An advanced circular-materials and infrastructure company. One feedstock, one materials platform, multiple infrastructure products.</p>
+      </div>
+      <div class="fcol"><h4>Products</h4><a data-nav="crosstie">GFR20 Crosstie</a><a data-nav="products">Construction Mats</a><a data-nav="products">Wheel Stops</a><a data-nav="products">Floor Tiles</a></div>
+      <div class="fcol"><h4>Company</h4><a data-nav="technology">Technology</a><a data-nav="performance">Performance</a><a data-nav="sustainability">Sustainability</a><a data-nav="team">Management Team</a><a href="https://microtecdhus.com" target="_blank" rel="noopener">Microtec &#8599;</a></div>
+      <div class="fcol"><h4>Connect</h4><a href="mailto:info@microtecdhus.com">info@microtecdhus.com</a><a data-nav="contact">Contact</a><span class="f-hq"><b>Headquarters</b>1395 Panther Lane, Suite 200<br>Naples, FL 34109</span></div>
+    </div>
+    <div class="foot-bot"><span>&#169; 2026 Encell Composites, LLC &#183; A Microtec Development &amp; Holdings affiliate</span><span>One feedstock &#183; One platform &#183; Built to last</span></div>
+  </div>
+</footer>
+
+<!-- BIO PANEL -->
+<div class="bio-overlay" id="bioOverlay"></div>
+<aside class="bio-panel" id="bioPanel" aria-hidden="true">
+  <div class="bp-photo" id="bpPhoto"><img id="bpImg" alt=""><span class="mono" id="bpMono"></span><button class="bio-close" id="bioClose" aria-label="Close">&#10005;</button></div>
+  <div class="bp-body">
+    <span class="bp-rank" id="bpRank"></span>
+    <h2 class="bp-name" id="bpName"></h2>
+    <div class="bp-title" id="bpTitle"></div>
+    <div class="bp-rule"></div>
+    <p class="bp-bio" id="bpBio"></p>
+    <div class="bp-contact"><a id="bpContactLink">Get in touch &#8594;</a></div>
+  </div>
+</aside>
+
+<script>
+/* ===== TEAM (same roster as the Microtec site) ===== */
+var TEAM = [
+  {n:'Anthony Cialone', img:'Anthoney Cialone.webp', t:'President and Founder', b:"Anthony founded Microtec Development & Holdings to turn advanced materials science into real industrial capacity. He brings deep experience in tire recycling, having previously worked to return finely ground tire rubber to tire manufacturers at commercial scale, and sets the strategic direction for Encell."},
+  {n:'David Haughie', img:'David Haughie.png', t:'Executive Chairman', b:"David serves as Executive Chairman, guiding governance and long-term strategy across the Microtec portfolio, including Encell. He brings decades of leadership experience to the board."},
+  {n:'William Cialone', img:'William Cialone.png', t:'VP of Corporate Strategy', b:"William leads corporate strategy, shaping how Microtec and its affiliates build partnerships and grow their market position across infrastructure and industrial sectors."},
+  {n:'Josef Fischer', img:'Josef Fisher.png', t:'Chief Technology Officer', b:"Josef oversees the science and engineering behind Microtec's milling and classification technology, including the cryogenic grinding of tire rubber. Based in Germany, he leads the R&D that pushes particle performance to the micron level."},
+  {n:'Alan Wessel', img:'Alan Wessel.jpg', t:'Senior Strategic Advisor', b:"Alan advises the leadership team on strategy and growth, bringing an experienced outside perspective to key decisions across market development and partnerships."},
+  {n:'Merritt Scott', img:'Merritt Scott.png', t:'Director of Digital Intelligence & Technology Integration', b:"Merritt leads digital intelligence and technology integration, building the systems and data infrastructure that support operations across Microtec and its affiliates."},
+  {n:'Joe Meierhoff', img:'Joe Meierhoff.jpg', t:'National Glass Acquisition & Logistics Director', b:"Joe directs national feedstock acquisition and logistics, managing the supply relationships and transport networks that keep recovered material moving to production."},
+  {n:'Carlos Rodriguez', img:'Carlos Rodriguez.png', t:'Project Manager', b:"Carlos manages projects across the engineering and deployment pipeline, coordinating schedules, vendors and execution from design through commissioning."},
+  {n:'Tabitha Eaves', img:'Tabitha Eaves.jpg', t:'Document Controls Manager', b:"Tabitha manages document controls, keeping technical, compliance and operational records organized and accessible to support quality and accountability on every project."},
+  {n:'Christopher Cheadle', img:'Chris Cheadle.webp', t:'Lead Process Engineer', b:"Christopher leads process engineering, designing and optimizing production processes and translating lab results into repeatable industrial operations."},
+  {n:'Nick Tenley', img:'Nick Tenley.jpg', t:'Mechanical Engineering Specialist', b:"Nick specializes in mechanical engineering, supporting the design, maintenance and reliability of production equipment."},
+  {n:'Stan Gibson', t:'Engineering', b:"Stan supports the engineering team across design and implementation, contributing to the systems and equipment that bring new materials to commercial scale."}
+];
+
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function initials(n){return n.split(' ').map(function(w){return w[0]}).slice(0,2).join('')}
+
+  /* ===== TEAM CARDS ===== */
+  var grid=document.getElementById('teamGrid');
+  TEAM.forEach(function(m,i){
+    var rank=String(i+1).padStart(2,'0');
+    var card=document.createElement('div');
+    card.className='member';card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','Read bio: '+m.n);
+    card.innerHTML='<div class="photo'+(m.img?' has-img':'')+'">'+(m.img?'<img src="'+m.img+'" alt="'+m.n+'" loading="lazy">':'')+
+      '<span class="rank">'+rank+'</span><span class="mono">'+initials(m.n)+'</span></div>'+
+      '<div class="info"><div class="nm">'+m.n+'</div><div class="ti">'+m.t+'</div><div class="view">View bio &#8594;</div></div>';
+    var im=card.querySelector('img');
+    if(im){im.addEventListener('error',function(){im.parentNode.classList.remove('has-img');im.remove()})}
+    card.addEventListener('click',function(){openBio(i)});
+    card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openBio(i)}});
+    grid.appendChild(card);
+  });
+
+  var overlay=document.getElementById('bioOverlay'),panel=document.getElementById('bioPanel');
+  function openBio(i){
+    var m=TEAM[i],bpp=document.getElementById('bpPhoto'),bpi=document.getElementById('bpImg');
+    document.getElementById('bpMono').textContent=initials(m.n);
+    if(m.img){bpp.classList.add('has-img');bpi.onerror=function(){bpp.classList.remove('has-img')};bpi.src=m.img;bpi.alt=m.n}
+    else{bpp.classList.remove('has-img');bpi.removeAttribute('src')}
+    document.getElementById('bpRank').textContent=String(i+1).padStart(2,'0')+' \u00B7 Leadership';
+    document.getElementById('bpName').textContent=m.n;
+    document.getElementById('bpTitle').textContent=m.t;
+    document.getElementById('bpBio').textContent=m.b;
+    overlay.classList.add('open');panel.classList.add('open');panel.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  }
+  function closeBio(){overlay.classList.remove('open');panel.classList.remove('open');panel.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+  overlay.addEventListener('click',closeBio);
+  document.getElementById('bioClose').addEventListener('click',closeBio);
+  document.getElementById('bpContactLink').addEventListener('click',function(){closeBio();go('contact')});
+  addEventListener('keydown',function(e){if(e.key==='Escape')closeBio()});
+
+  /* ===== ROUTER ===== */
+  var nav=document.getElementById('nav'),links=document.getElementById('links'),burger=document.getElementById('burger');
+  var PAGES=['home','crosstie','technology','performance','products','sustainability','team','contact'];
+  function setNavH(){document.documentElement.style.setProperty('--navh',nav.offsetHeight+'px')}
+  addEventListener('resize',setNavH);setNavH();
+  function current(){var a=document.querySelector('.page.active');return a?a.id.replace('page-',''):'home'}
+  function setNavState(){if(current()==='home'&&scrollY<40)nav.classList.remove('solid');else nav.classList.add('solid')}
+  function go(page,instant){
+    if(PAGES.indexOf(page)<0)page='home';
+    document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+    var target=document.getElementById('page-'+page);target.classList.add('active');
+    links.querySelectorAll('a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-nav')===page)});
+    links.classList.remove('open');nav.classList.remove('menuopen');
+    window.scrollTo({top:0,behavior:(reduce||instant)?'auto':'smooth'});
+    setNavState();setNavH();
+    if(location.hash!=='#'+page)history.replaceState(null,'','#'+page);
+    revealPage(target);
+    if(page==='home'&&window.heroResize)requestAnimationFrame(window.heroResize);
+    if(page==='performance')setTimeout(fillBars,500);
+    var t=document.title.split(' | ')[0];
+    document.title=page==='home'?'Encell Composites | Scrap Tires, Re-engineered into Infrastructure':
+      'Encell Composites | '+({crosstie:'The GFR20 Crosstie',technology:'Technology',performance:'Performance',products:'Products',sustainability:'Sustainability',team:'Management Team',contact:'Contact'})[page];
+  }
+  window.go=go;
+  document.querySelectorAll('[data-nav]').forEach(function(el){
+    el.addEventListener('click',function(e){e.preventDefault();go(el.getAttribute('data-nav'))});
+    if(el.tagName!=='A'&&el.tagName!=='BUTTON'){el.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();go(el.getAttribute('data-nav'))}})}
+  });
+  burger.addEventListener('click',function(){links.classList.toggle('open');nav.classList.toggle('menuopen')});
+  addEventListener('scroll',setNavState,{passive:true});
+  addEventListener('hashchange',function(){var h=location.hash.slice(1);if(h&&h!==current())go(h)});
+
+  /* ===== REVEAL ===== */
+  function revealPage(scope){
+    scope.querySelectorAll('.reveal').forEach(function(el,i){
+      if(reduce){el.classList.add('in');return}
+      el.classList.remove('in');
+      if(i<4){setTimeout(function(){el.classList.add('in')},70+i*90)}else{ro.observe(el)}
+    });
+  }
+  var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+
+  /* ===== COUNT UP ===== */
+  function fmt(v,el){var s=Math.round(v).toString();if(el.dataset.comma)s=s.replace(/\B(?=(\d{3})+(?!\d))/g,',');return s+(el.dataset.suffix||'')}
+  function countUp(el){var target=parseFloat(el.dataset.count),t0=null,dur=1500;function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=fmt(target*e,el);if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)}
+  var co=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp(e.target);co.unobserve(e.target)}})},{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(function(el){if(reduce)el.textContent=fmt(parseFloat(el.dataset.count),el);else co.observe(el)});
+
+  /* ===== PULLOUT BARS ===== */
+  function fillBars(){document.querySelectorAll('#pullBars i').forEach(function(i){i.style.width=i.dataset.w+'%'})}
+
+  /* ===== HERO: RAIL PERSPECTIVE + RUBBER CRUMB ===== */
+  (function(){
+    var c=document.getElementById('heroCanvas');if(!c)return;
+    var x=c.getContext('2d'),DPR=Math.min(devicePixelRatio||1,2),w,h,crumbs=[],phase=0,raf;
+    function size(){var r=c.getBoundingClientRect();w=c.width=Math.max(r.width,1)*DPR;h=c.height=Math.max(r.height,1)*DPR;seed()}
+    function seed(){crumbs=[];var n=Math.min(150,Math.round(w*h/(DPR*DPR*9000)));
+      for(var i=0;i<n;i++)crumbs.push({x:Math.random()*w,y:Math.random()*h,r:(Math.random()*1.8+.4)*DPR,vx:(.05+Math.random()*.22)*DPR,vy:(Math.random()-.5)*.08*DPR,a:Math.random()*.5+.12,c:Math.random()<.7?'255,255,255':'185,194,140',s:Math.floor(Math.random()*3)})}
+    function frame(){
+      x.clearRect(0,0,w,h);
+      var mobile=w/DPR<760;
+      var vx=w*(mobile?.6:.7),vy=h*(mobile?.36:.4),bl=w*(mobile?.1:.36),br=w*(mobile?1.1:1.04);
+      var N=22;
+      for(var i=N-1;i>=0;i--){
+        var t=((i+phase)%N)/N,s=t*t*t;
+        if(s<.002)continue;
+        var y=vy+(h*1.04-vy)*s,lx=vx+(bl-vx)*s,rx=vx+(br-vx)*s,ext=(rx-lx)*.16,th=Math.max(1.2*DPR,h*.05*s),a=Math.min(1,s*3)*.62;
+        x.fillStyle='rgba(102,112,58,'+a*.75+')';
+        x.beginPath();x.moveTo(lx-ext,y);x.lineTo(rx+ext,y);x.lineTo(rx+ext*1.02,y+th);x.lineTo(lx-ext*1.02,y+th);x.closePath();x.fill();
+        x.fillStyle='rgba(185,194,140,'+a*.35+')';x.fillRect(lx-ext,y,(rx-lx)+ext*2,Math.max(1,th*.14));
+      }
+      x.lineWidth=2*DPR;
+      [[bl,'l'],[br,'r']].forEach(function(p){
+        var g=x.createLinearGradient(vx,vy,p[0],h);g.addColorStop(0,'rgba(220,222,214,0)');g.addColorStop(.35,'rgba(220,222,214,.35)');g.addColorStop(1,'rgba(240,242,236,.85)');
+        x.strokeStyle=g;x.beginPath();x.moveTo(vx,vy);x.lineTo(p[0],h*1.04);x.stroke();
+      });
+      for(var k=0;k<crumbs.length;k++){var q=crumbs[k];q.x+=q.vx;q.y+=q.vy;if(q.x>w+10){q.x=-10;q.y=Math.random()*h}if(q.y<0)q.y=h;if(q.y>h)q.y=0;
+        x.fillStyle='rgba('+q.c+','+q.a+')';x.beginPath();
+        if(q.s===0){x.arc(q.x,q.y,q.r,0,6.283)}else{x.moveTo(q.x-q.r,q.y);x.lineTo(q.x,q.y-q.r*1.2);x.lineTo(q.x+q.r*1.1,q.y+q.r*.3);x.lineTo(q.x-q.r*.2,q.y+q.r)}
+        x.fill()}
+      phase+=.012;
+      if(!reduce&&current()==='home')raf=requestAnimationFrame(frame);else raf=null;
+    }
+    window.heroResize=function(){size();if(!raf)frame()};
+    addEventListener('resize',function(){size();if(reduce)frame()});
+    size();frame();
+  })();
+
+  /* ===== LIFECYCLE INTERACTIVE ===== */
+  (function(){
+    var slider=document.getElementById('lcSlider');if(!slider)return;
+    var laneW=document.getElementById('laneWood'),laneE=document.getElementById('laneEnc');
+    var yEl=document.getElementById('lcYear'),wEl=document.getElementById('lcWood'),wTxt=document.getElementById('lcWoodTxt');
+    var playBtn=document.getElementById('lcPlay'),L=10,ticks=[],playing=false,last=0,autoDone=false;
+    function build(){
+      laneW.querySelectorAll('.tk').forEach(function(t){t.remove()});ticks=[];
+      for(var yr=0;yr<60;yr+=L){var t=document.createElement('div');t.className='tk';t.style.left='calc('+(yr/60*100)+'% + '+(yr===0?7:0)+'px)';t.dataset.y=yr;laneW.insertBefore(t,laneW.querySelector('.ph'));ticks.push(t)}
+      wTxt.textContent='Replaced every '+L+' years';update();
+    }
+    function update(){
+      var y=+slider.value,pct=y/60*100;
+      [laneW,laneE].forEach(function(l){l.querySelector('.fill').style.width=pct+'%';l.querySelector('.ph').style.left=pct+'%'});
+      var n=0;ticks.forEach(function(t){var on=+t.dataset.y<=y+0.001;t.classList.toggle('on',on);if(on)n++});
+      yEl.textContent=Math.floor(y);wEl.textContent=n;
+    }
+    function setPlay(p){playing=p;playBtn.innerHTML=p?'<svg viewBox="0 0 14 14" fill="currentColor"><rect x="3" y="2" width="3" height="10"/><rect x="8" y="2" width="3" height="10"/></svg>':'<svg viewBox="0 0 14 14" fill="currentColor"><path d="M3 1.5v11l9-5.5z"/></svg>';playBtn.setAttribute('aria-label',p?'Pause timeline':'Play timeline');if(p){last=0;requestAnimationFrame(tick)}}
+    function tick(ts){if(!playing)return;if(!last)last=ts;var dt=(ts-last)/1000;last=ts;var v=+slider.value+dt*9;if(v>=60){v=60;slider.value=v;update();setPlay(false);return}slider.value=v;update();requestAnimationFrame(tick)}
+    playBtn.addEventListener('click',function(){if(!playing&&+slider.value>=60)slider.value=0;setPlay(!playing)});
+    slider.addEventListener('input',function(){if(playing)setPlay(false);update()});
+    document.querySelectorAll('#lcSeg button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#lcSeg button').forEach(function(o){o.classList.remove('on')});b.classList.add('on');L=+b.dataset.l;build()})});
+    build();
+    if(!reduce){new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting&&!autoDone){autoDone=true;o.disconnect();setTimeout(function(){setPlay(true)},500)}})},{threshold:.5}).observe(document.getElementById('lifecycle'))}
+  })();
+
+  /* ===== CONTACT FORM (Formspree AJAX) ===== */
+  (function(){
+    var f=document.getElementById('contactForm');if(!f)return;
+    var st=document.getElementById('cfStatus'),btn=document.getElementById('cfBtn');
+    f.addEventListener('submit',function(e){
+      e.preventDefault();btn.disabled=true;btn.style.opacity=.6;st.className='cf-status show';st.textContent='Sending\u2026';
+      fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
+        .then(function(r){if(r.ok){st.className='cf-status show ok';st.textContent='Thanks. Your message is on its way and we will be in touch shortly.';f.reset()}else{throw 0}})
+        .catch(function(){st.className='cf-status show err';st.innerHTML='Something went wrong. Please email <a href="mailto:info@microtecdhus.com" style="text-decoration:underline">info@microtecdhus.com</a>.'})
+        .finally(function(){btn.disabled=false;btn.style.opacity=1});
+    });
+  })();
+
+  /* ===== INITIAL ROUTE ===== */
+  var h=location.hash.slice(1);
+  go(PAGES.indexOf(h)>=0?h:'home',true);
+})();
+</script>
+</body>
+</html>

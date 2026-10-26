@@ -108,6 +108,14 @@
   .hero.vid-on #heroCanvas{opacity:0}
   .hero.vid-on::after{background:radial-gradient(90% 70% at 80% 10%,rgba(164,172,124,.12),transparent 55%),
       linear-gradient(180deg,rgba(20,21,23,.62) 0%,rgba(20,21,23,.3) 34%,rgba(20,21,23,.55) 62%,rgba(20,21,23,.9) 88%,#141517 100%)}
+  /* show the whole frame: size the video to its own aspect ratio, centered, edges feathered into the page */
+  .hero-vid{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(100%,calc(100svh * var(--ar,1.7778)));height:auto;aspect-ratio:var(--ar,1.7778);object-fit:contain;background:transparent;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent);
+    -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent);
+    mask-composite:intersect}
+  @media(max-aspect-ratio:4/5){.hero-vid{top:calc(var(--navh,64px) + 1svh);transform:translateX(-50%)}}
   @media(prefers-reduced-motion:reduce){.hero-vid{display:none}}
   .scrollcue{position:absolute;right:var(--pad);bottom:28px;z-index:3;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:10px}
   .scrollcue .bar{width:1px;height:34px;background:linear-gradient(var(--sage),transparent);animation:drop 2.2s infinite}
@@ -1300,6 +1308,7 @@ var TEAM = [
     var conn=navigator.connection||navigator.mozConnection||navigator.webkitConnection;
     var thin=!!(conn&&(conn.saveData||/(^|-)2g$/.test(conn.effectiveType||'')));
     if(reduce||thin||!src){v.remove();return}
+    v.addEventListener('loadedmetadata',function(){if(v.videoWidth&&v.videoHeight)hero.style.setProperty('--ar',(v.videoWidth/v.videoHeight).toFixed(4))});
     v.addEventListener('playing',function(){hero.classList.add('vid-on')});
     v.addEventListener('error',function(){hero.classList.remove('vid-on');v.style.display='none';if(window.heroResize)window.heroResize()});
     v.src=src;

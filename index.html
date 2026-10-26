@@ -102,6 +102,13 @@
   .hero h1{font-size:clamp(2.6rem,6.6vw,5.9rem);max-width:15ch;margin:.34em 0 .42em;color:#fff}
   .hero h1 em{color:var(--on-dark)}
   .hero .lede{max-width:54ch;font-size:clamp(1rem,1.3vw,1.18rem);font-weight:300;color:rgba(255,255,255,.76);margin-bottom:2.1em}
+  .hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0;transition:opacity 1.4s ease;pointer-events:none;background:#141517}
+  .hero.vid-on .hero-vid{opacity:1}
+  #heroCanvas{transition:opacity 1.4s ease}
+  .hero.vid-on #heroCanvas{opacity:0}
+  .hero.vid-on::after{background:radial-gradient(90% 70% at 80% 10%,rgba(164,172,124,.12),transparent 55%),
+      linear-gradient(180deg,rgba(20,21,23,.62) 0%,rgba(20,21,23,.3) 34%,rgba(20,21,23,.55) 62%,rgba(20,21,23,.9) 88%,#141517 100%)}
+  @media(prefers-reduced-motion:reduce){.hero-vid{display:none}}
   .scrollcue{position:absolute;right:var(--pad);bottom:28px;z-index:3;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:10px}
   .scrollcue .bar{width:1px;height:34px;background:linear-gradient(var(--sage),transparent);animation:drop 2.2s infinite}
   @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
@@ -464,6 +471,7 @@
 <!-- ======================= HOME ======================= -->
 <main class="page active" id="page-home">
   <section class="hero">
+    <video class="hero-vid" id="heroVid" data-src="1026.mp4" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
     <canvas id="heroCanvas" aria-hidden="true"></canvas>
     <div class="hero-inner">
       <span class="eyebrow">Encell Composites</span>
@@ -1251,6 +1259,7 @@ var TEAM = [
     if(location.hash!=='#'+page)history.replaceState(null,'','#'+page);
     revealPage(target);
     if(page==='home'&&window.heroResize)requestAnimationFrame(window.heroResize);
+    if(page==='home'&&window.heroVidPlay)window.heroVidPlay();
     if(page==='performance')setTimeout(fillBars,500);
     var t=document.title.split(' | ')[0];
     document.title=page==='home'?'Encell Composites | Scrap Tires, Re-engineered into Infrastructure':
@@ -1284,6 +1293,20 @@ var TEAM = [
   /* ===== PULLOUT BARS ===== */
   function fillBars(){document.querySelectorAll('#pullBars i').forEach(function(i){i.style.width=i.dataset.w+'%'})}
 
+  /* ===== HERO VIDEO (canvas animation stays as fallback) ===== */
+  (function(){
+    var v=document.getElementById('heroVid');if(!v)return;
+    var hero=v.closest('.hero'),src=v.getAttribute('data-src');
+    var conn=navigator.connection||navigator.mozConnection||navigator.webkitConnection;
+    var thin=!!(conn&&(conn.saveData||/(^|-)2g$/.test(conn.effectiveType||'')));
+    if(reduce||thin||!src){v.remove();return}
+    v.addEventListener('playing',function(){hero.classList.add('vid-on')});
+    v.addEventListener('error',function(){hero.classList.remove('vid-on');v.style.display='none';if(window.heroResize)window.heroResize()});
+    v.src=src;
+    var pr=v.play();if(pr&&pr.catch)pr.catch(function(){});
+    window.heroVidPlay=function(){if(v.paused){var q=v.play();if(q&&q.catch)q.catch(function(){})}};
+  })();
+
   /* ===== HERO: RAIL PERSPECTIVE + RUBBER CRUMB ===== */
   (function(){
     var c=document.getElementById('heroCanvas');if(!c)return;
@@ -1314,7 +1337,7 @@ var TEAM = [
         if(q.s===0){x.arc(q.x,q.y,q.r,0,6.283)}else{x.moveTo(q.x-q.r,q.y);x.lineTo(q.x,q.y-q.r*1.2);x.lineTo(q.x+q.r*1.1,q.y+q.r*.3);x.lineTo(q.x-q.r*.2,q.y+q.r)}
         x.fill()}
       phase+=.012;
-      if(!reduce&&current()==='home')raf=requestAnimationFrame(frame);else raf=null;
+      if(!reduce&&current()==='home'&&!document.querySelector('.hero.vid-on'))raf=requestAnimationFrame(frame);else raf=null;
     }
     window.heroResize=function(){size();if(!raf)frame()};
     addEventListener('resize',function(){size();if(reduce)frame()});
